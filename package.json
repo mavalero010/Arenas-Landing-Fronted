@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "@iconify/react": "^5.0.2",
+    "sass": "^1.85.1",
     "webpack": "^5.90.3"
   }
 }

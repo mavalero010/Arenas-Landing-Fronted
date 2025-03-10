@@ -5,10 +5,12 @@ import { usePathname, useRouter } from "next/navigation";
 import ThemeToggleButton from "../helper/ThemeToggleButton";
 import Link from "next/link";
 import { isTokenExpired, refreshAccessToken, logout } from "@/utils/authUtils";
+import Loader from "../components/Loader";
 
 const MasterLayout = ({ children }) => {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
   let pathname = usePathname();
   let [sidebarActive, seSidebarActive] = useState(false);
   let [mobileMenu, setMobileMenu] = useState(false);
@@ -16,6 +18,7 @@ const MasterLayout = ({ children }) => {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!isAuthenticated) return; // Skip setup if not authenticated
 
     const handleDropdownClick = (event) => {
       event.preventDefault();
@@ -83,10 +86,11 @@ const MasterLayout = ({ children }) => {
         trigger.removeEventListener("click", handleDropdownClick);
       });
     };
-  }, [location.pathname]);
+  }, [location.pathname, isAuthenticated]); // Add isAuthenticated as a dependency
 
   useEffect(() => {
     const checkAuth = async () => {
+      setIsLoading(true); // Start loading
       let accessToken = localStorage.getItem("accessToken");
 
       if (!accessToken || isTokenExpired(accessToken)) {
@@ -96,23 +100,74 @@ const MasterLayout = ({ children }) => {
       if (!accessToken) {
         router.push("/sign-in"); 
       } else {
-        
         setIsAuthenticated(true);
-
       }
+      setIsLoading(false); // End loading
     };
 
     checkAuth();
-  }, [router, isAuthenticated]);
+  }, [router]);
 
-  
-  if (!isAuthenticated) {
-    return null;
-  } else{
-    console.log(isAuthenticated);
+  // After the authentication check
+  useEffect(() => {
+    if (!isAuthenticated || typeof window === "undefined") return;
     
+    // Initialize Bootstrap dropdowns if Bootstrap is used
+    if (typeof window !== "undefined" && window.bootstrap) {
+      const dropdownElementList = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+      dropdownElementList.forEach(dropdownToggle => {
+        new window.bootstrap.Dropdown(dropdownToggle);
+      });
+    }
+
+    // Add any other initialization code for interactive elements here
+    
+    // Make sure all dropdown menus are working
+    const dropdownButtons = document.querySelectorAll('.dropdown > button, .dropdown > a');
+    dropdownButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        // For elements that are not handled by Bootstrap
+        if (!button.getAttribute('data-bs-toggle')) {
+          e.preventDefault();
+          const dropdown = button.closest('.dropdown');
+          if (dropdown) {
+            dropdown.classList.toggle('show');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            if (menu) {
+              menu.classList.toggle('show');
+            }
+          }
+        }
+      });
+    });
+
+    return () => {
+      // Clean up event listeners when component unmounts
+      dropdownButtons.forEach(button => {
+        button.removeEventListener('click', () => {});
+      });
+    };
+  }, [isAuthenticated]);
+
+  // Show loading state or redirect
+  if (isLoading) {
+    return (
+      <Loader
+        variant="icon"
+        color="primary"
+        size="lg"
+        text="Cargando dashboard..."
+        fullScreen={true}
+        bgStyle="with-bg"
+      />
+    );
   }
- 
+
+  // Only render the dashboard when authenticated
+  if (!isAuthenticated) {
+    return null; // Don't render anything if not authenticated
+  }
+
   let sidebarControl = () => {
     seSidebarActive(!sidebarActive);
   };
