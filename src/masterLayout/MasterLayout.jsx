@@ -275,10 +275,10 @@ const MasterLayout = ({ children }) => {
                 </li>
                 <li>
                   <Link
-                    href='/transfer-history'
-                    className={pathname === "/transfer-history" ? "active-page" : ""}
+                    href='/transfer-list-history'
+                    className={pathname === "/transfer-list-history" ? "active-page" : ""}
                   >
-                    Historia
+                    Historial
                   </Link>
                 </li>
                 <li>
