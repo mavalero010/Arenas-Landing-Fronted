@@ -4,51 +4,174 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { isTokenExpired, refreshAccessToken } from "@/utils/authUtils";
+import { Modal, Button, Form, Pagination } from "react-bootstrap";
 
 const UsersListLayer = () => {
+
   const router = useRouter();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [rejectionReason, setRejectionReason] = useState("");
+  const [showRejectionReason, setShowRejectionReason] = useState(false);
+  const [selectedAction, setSelectedAction] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [registrationStep, setRegistrationStep] = useState("");
+  const [isActive, setIsActive] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage, setUsersPerPage] = useState(5); // Personalizable
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(users.length / usersPerPage);
+  const [currentVerificationPage, setCurrentVerificationPage] = useState(1);
+  const [verificationsPerPage] = useState(1);
+
+
+  const verifications = selectedUser?.userVerifications || [];
+  const currentVerification = verifications.length > 0
+    ? verifications[currentVerificationPage - 1]
+    : null;
+
+  const indexOfLastVerification = currentVerificationPage * verificationsPerPage;
+  const indexOfFirstVerification = indexOfLastVerification - verificationsPerPage;
+  const currentVerifications = verifications.slice(indexOfFirstVerification, indexOfLastVerification);
+  const totalVerificationPages = Math.ceil(verifications.length / verificationsPerPage);
+
+  const fetchData = async (filters = {}) => {
+    try {
+      const queryParams = new URLSearchParams({
+        ...(filters.searchQuery && { name: filters.searchQuery }),
+        ...(filters.registrationStep && { registrationStep: filters.registrationStep }),
+        ...(filters.isActive && { isActive: filters.isActive }),
+        ...(filters.status && { status: filters.status })
+      }).toString();
+
+
+
+      let token = localStorage.getItem("accessToken");
+      if (!token || isTokenExpired(token)) {
+        token = await refreshAccessToken();
+      }
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/user/list?${queryParams}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.status === 401) {
+        await refreshAccessToken();
+        return fetchData();
+      }
+
+      const data = await response.json();
+      setUsers(Array.isArray(data) ? data : []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let token = localStorage.getItem("accessToken");
-        if (!token || isTokenExpired(token)) {
-          token = await refreshAccessToken();
-        }
 
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/users/recent-transactions`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-
-        if (response.status === 401) {
-          await refreshAccessToken();
-          return fetchData(); // Reintenta una sola vez
-        }
-
-        const data = await response.json();
-
-        // Si la respuesta es un array, lo usamos, de lo contrario, lo forzamos a array (o vacío)
-        if (Array.isArray(data)) {
-          setUsers(data);
-        } else {
-          setUsers([]);
-        }
-      } catch (err) {
-        setError(err.message);
-        router.push("/sign-in"); // Redirección si hay error
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
     fetchData();
-  }, [router]);
+  }, []);
+
+  const handleSearch = () => {
+    fetchData({
+      searchQuery,
+      registrationStep,
+      isActive,
+      status: selectedStatus
+    });
+  };
+
+  const handleShowModal = (user) => {
+    setSelectedUser(user);
+    setShowModal(true);
+    setCurrentVerificationPage(1);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setRejectionReason("");
+    setShowRejectionReason(false);
+    setSelectedAction(null);
+  };
+
+
+
+  const handleAction = (actionType, verification) => {
+
+    setSelectedAction(actionType);
+
+    if (actionType === "REJECTED") {
+      setShowRejectionReason(true);
+    } else {
+
+      handleCloseModal();
+    }
+  };
+
+  const confirmRejection = async (currentVerification) => {
+    if (rejectionReason.trim() === "") {
+      alert("Por favor ingresa una razón de rechazo");
+      return;
+    }
+
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/user/verification/${currentVerification.id}`;
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.error('No access token found in localStorage');
+      return;
+    }
+
+    const body = {
+      status: "REJECTED",
+      rejectionReason: rejectionReason
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'PATCH', 
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!response.ok) {
+        setShowRejectionReason(false);
+        handleCloseModal();
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+
+      const data = await response.json();
+      setShowRejectionReason(false);
+      handleCloseModal();
+
+      router.refresh();
+      return data;
+    } catch (error) {
+      setShowRejectionReason(false);
+      handleCloseModal();
+      console.error('Error:', error);
+    }
+
+
+
+  };
 
   if (isLoading) {
     return (
@@ -77,142 +200,290 @@ const UsersListLayer = () => {
 
   return (
     <div className="card h-100 p-0 radius-12">
-      {/* Header */}
-      <div className="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
-        <div className="d-flex align-items-center flex-wrap gap-3">
-          <span className="text-md fw-medium text-secondary-light mb-0">Show</span>
-          <select
-            className="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px"
-            defaultValue="Select Number"
-          >
-            <option value="Select Number" disabled>
-              Select Number
-            </option>
-            {[...Array(10)].map((_, i) => (
-              <option key={i} value={i + 1}>
-                {i + 1}
-              </option>
-            ))}
-          </select>
-          <form className="navbar-search">
-            <input type="text" className="bg-base h-40-px w-auto" name="search" placeholder="Search" />
-            <Icon icon="ion:search-outline" className="icon" />
-          </form>
-          <select
-            className="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px"
-            defaultValue="Select Status"
-          >
-            <option value="Select Status" disabled>
-              Select Status
-            </option>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
-        </div>
-        <Link
-          href="/add-user"
-          className="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
-        >
-          <Icon icon="ic:baseline-plus" className="icon text-xl line-height-1" />
-          Add New User
-        </Link>
-      </div>
 
+      <div className='card-header border-bottom bg-base py-16 px-24 d-flex align-items-center justify-content-between'>
+        <div className='d-flex align-items-center gap-3 w-100'>
+          <div className="flex-grow-1">
+            <Form.Control
+              type='text'
+              placeholder='Search by name'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className='bg-base h-40-px w-100'
+            />
+          </div>
+
+          <div className="flex-grow-1">
+            <Form.Select
+              value={registrationStep}
+              onChange={(e) => setRegistrationStep(e.target.value)}
+              className='form-select-sm ps-12 py-6 radius-12 h-40-px w-100'
+            >
+              <option value=''>All Steps</option>
+              <option value='PHONE_SUBMISSION'>PHONE_SUBMISSION</option>
+              <option value='VERIFICATION'>VERIFICATION</option>
+              <option value='PROFILE_COMPLETION'>PROFILE_COMPLETION</option>
+              <option value='COMPLETE'>COMPLETE</option>
+            </Form.Select>
+          </div>
+
+          <div className="flex-grow-1">
+            <Form.Select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className='form-select-sm ps-12 py-6 radius-12 h-40-px w-100'
+            >
+              <option value=''>All Statuses</option>
+              <option value='PENDING'>PENDING</option>
+              <option value='COMPLETE'>COMPLETE</option>
+              <option value='REJECTED'>REJECTED</option>
+            </Form.Select>
+          </div>
+
+          <div className="flex-grow-1">
+            <Form.Select
+              value={isActive}
+              onChange={(e) => setIsActive(e.target.value)}
+              className='form-select-sm ps-12 py-6 radius-12 h-40-px w-100'
+            >
+              <option value=''>All Users</option>
+              <option value='true'>Active</option>
+              <option value='false'>Inactive</option>
+            </Form.Select>
+          </div>
+
+          <div className="flex-grow-0">
+            <Button
+              variant="primary"
+              onClick={handleSearch}
+              className='text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2'
+            >
+              <Icon icon="ion:search-outline" className='icon text-xl line-height-1' />
+              Search
+            </Button>
+
+
+          </div>
+        </div>
+      </div>
       <div className="card-body p-24">
         <div className="table-responsive scroll-sm">
+          <div className="flex items-center gap-3 mb-10">
+            <label className="text-sm font-medium text-gray-600 mr-10">Mostrar:</label>
+            <select
+              value={usersPerPage}
+              onChange={(e) => setUsersPerPage(Number(e.target.value))}
+              className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm 
+             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+             transition-all duration-200 bg-white hover:border-gray-400 
+             cursor-pointer appearance-none w-[120px] text-gray-700"
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+            </select>
+          </div>
           <table className="table bordered-table sm-table mb-0">
             <thead>
               <tr>
-                <th scope="col">
-                  <div className="d-flex align-items-center gap-10">
-                    <div className="form-check style-check d-flex align-items-center">
-                      <input
-                        className="form-check-input radius-4 border input-form-dark"
-                        type="checkbox"
-                        name="checkbox"
-                        id="selectAll"
-                      />
-                    </div>
-                    S.L
-                  </div>
-                </th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col"># Transactions</th>
-                <th scope="col">Latest Transaction</th>
-                <th scope="col" className="text-center">
-                  Action
-                </th>
+                <th>S.L</th>
+                <th className="text-center">Name</th>
+                <th className="text-center">Email</th>
+                <th className="text-center">Registration Step</th>
+                <th className="text-center">Action</th>
               </tr>
             </thead>
-
             <tbody>
-              {users && users.length > 0 ? (
-                users.map((user, index) => {
-                  // Obtenemos la fecha de la transacción más reciente, si existe
-                  let latestTransactionDate = null;
-                  if (user.sentTransactions && user.sentTransactions.length > 0) {
-                    const sortedTransactions = [...user.sentTransactions].sort(
-                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                    );
-                    latestTransactionDate = sortedTransactions[0].createdAt;
-                  }
-                  return (
-                    <tr key={user.id}>
-                      <td>
-                        <div className="d-flex align-items-center gap-10">
-                          <div className="form-check style-check d-flex align-items-center">
-                            <input
-                              className="form-check-input radius-4 border border-neutral-400"
-                              type="checkbox"
-                              name="checkbox"
-                            />
-                          </div>
-                          {index + 1}
-                        </div>
-                      </td>
-                      <td>
-                        {user.firstName} {user.lastName}
-                      </td>
-                      <td>
-                        <span className="text-md mb-0 fw-normal text-secondary-light">
-                          {user.email}
-                        </span>
-                      </td>
-                      <td>{user.sentTransactions ? user.sentTransactions.length : 0}</td>
-                      <td>
-                        {latestTransactionDate
-                          ? new Date(latestTransactionDate).toLocaleDateString()
-                          : "N/A"}
-                      </td>
-                      <td className="text-center">
-                        <div className="d-flex align-items-center gap-10 justify-content-center">
-                          {/* Ejemplo de botón de acción */}
-                          <Link
-                            href={`/user/${user.id}`}
-                            className="btn btn-sm btn-primary"
-                          >
-                            View
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
+              {currentUsers.length > 0 ? (
+                currentUsers.map((user, index) => (
+                  <tr key={user.id}>
+                    <td>{indexOfFirstUser + index + 1}</td>
+                    <td className="text-center">
+                      {user.firstName} {user.lastName}
+                    </td>
+                    <td className="text-center">{user.email}</td>
+                    <td className="text-center">{user.registrationStep}</td>
+                    <td className="text-center">
+                      <button
+                        className="btn btn-sm btn-primary"
+                        onClick={() => handleShowModal(user)}
+                      >
+                        Ver Más
+                      </button>
+                    </td>
+                  </tr>
+                ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center">
+                  <td colSpan="5" className="text-center">
                     No users found.
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
+
+
+          <div className="my-4">
+            <Pagination className="justify-content-center align-item-center">
+              <Pagination.Prev
+                className="flex"
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+              >
+              </Pagination.Prev>
+
+              {Array.from({ length: totalPages }, (_, i) => (
+                <Pagination.Item
+                  key={i + 1}
+                  active={currentPage === i + 1}
+                  onClick={() => setCurrentPage(i + 1)}
+                >
+                  {i + 1}
+                </Pagination.Item>
+              ))}
+
+              <Pagination.Next
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+              >
+              </Pagination.Next>
+            </Pagination>
+          </div>
         </div>
-        {/* Aquí se puede incluir la paginación */}
+
+
+        <Modal show={showModal} onHide={handleCloseModal} size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>Verificaciones de Usuario</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            {verifications.length > 0 ? (
+              <>
+                {/* Paginación de verificaciones */}
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <Pagination className="mb-0">
+                    <Pagination.Prev
+                      onClick={() => setCurrentVerificationPage(prev => Math.max(prev - 1, 1))}
+                      disabled={currentVerificationPage === 1}
+                    />
+                    <Pagination.Item active className="mx-2">
+                      {currentVerificationPage} de {totalVerificationPages}
+                    </Pagination.Item>
+                    <Pagination.Next
+                      onClick={() => setCurrentVerificationPage(prev => Math.min(prev + 1, totalVerificationPages))}
+                      disabled={currentVerificationPage === totalVerificationPages}
+                    />
+                  </Pagination>
+                </div>
+
+                {/* Contenido de la verificación actual */}
+                {currentVerification && (
+                  <div key={currentVerification.id} className="row g-4">
+                    <div className="col-md-4">
+                      <h6>Front ID</h6>
+                      <img
+                        src={currentVerification.idFrontImageUrl}
+                        className="img-fluid rounded"
+                        alt="Front ID"
+                      />
+                    </div>
+
+                    <div className="col-md-4">
+                      <h6>Back ID</h6>
+                      <img
+                        src={currentVerification.idBackImageUrl}
+                        className="img-fluid rounded"
+                        alt="Back ID"
+                      />
+                    </div>
+
+                    <div className="col-md-4">
+                      <h6>Selfie</h6>
+                      <img
+                        src={currentVerification.selfieImageUrl}
+                        className="img-fluid rounded"
+                        alt="Selfie"
+                      />
+                    </div>
+
+                    <div className="col-12">
+                      <div className="card mt-3">
+                        <div className="card-body">
+                          <h6>Detalles de la Verificación</h6>
+                          <p>Estado: {currentVerification.status}</p>
+                          <p>Fecha de envío: {new Date(currentVerification.submittedAt).toLocaleDateString()}</p>
+                          {currentVerification.rejectionReason && (
+                            <p>Razón de rechazo: {currentVerification.rejectionReason}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-4">
+                <Icon icon="mdi:alert-circle-outline" className="text-warning h1" />
+                <p className="mt-2">No hay verificaciones disponibles para este usuario</p>
+              </div>
+            )}
+
+            {selectedAction === "REJECTED" && (
+              <div className="col-12 mt-4">
+                <Form.Group>
+                  <Form.Label>Razón de Rechazo</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={rejectionReason}
+                    onChange={(e) => setRejectionReason(e.target.value)}
+                    placeholder="Ingrese la razón del rechazo"
+                  />
+                </Form.Group>
+              </div>
+            )}
+          </Modal.Body>
+
+          <Modal.Footer>
+            {!showRejectionReason ? (
+              <>
+                <Button variant="success" onClick={() => handleAction('APPROVE', currentVerification)}>
+                  Aprobar
+                </Button>
+
+                <Button variant="danger" onClick={() => handleAction('REJECTED', currentVerification)}>
+                  Rechazar
+                </Button>
+
+
+              </>
+            ) : (
+              <Button variant="danger" onClick={() => confirmRejection(currentVerification)}>
+                Confirmar Rechazo
+              </Button>
+            )}
+            <Button
+              variant="secondary"
+              onClick={() => {
+                if (selectedAction === "REJECTED" && showRejectionReason) {
+                  setShowRejectionReason(false);
+                  setRejectionReason("");
+                  setSelectedAction("");
+                } else {
+                  handleCloseModal();
+                }
+              }}
+            >
+              Volver
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+
       </div>
     </div>
   );
 };
-
 export default UsersListLayer;

@@ -15,6 +15,7 @@ export const isTokenExpired = (token) => {
 // Función para refrescar el accessToken
 export const refreshAccessToken = async () => {
   const refreshToken = localStorage.getItem("refreshToken");
+console.log("refreshToken: ",refreshToken);
 
   if (!refreshToken) return null;
 

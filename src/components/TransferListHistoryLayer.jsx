@@ -20,7 +20,7 @@ const TransferListHistoryLayer = () => {
         }
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/users/recent-transactions`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/user/recent-transactions`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

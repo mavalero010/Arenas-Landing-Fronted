@@ -242,8 +242,8 @@ const MasterLayout = ({ children }) => {
                 </li>
                 <li>
                   <Link
-                    href='/kyc-verification'
-                    className={pathname === "/kyc-verification" ? "active-page" : ""}
+                    href='/verification-users'
+                    className={pathname === "/verification-users" ? "active-page" : ""}
                   >
                     Verificación KYC
                   </Link>
