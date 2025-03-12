@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { isTokenExpired, refreshAccessToken } from "@/utils/authUtils";
 import { Modal, Button, Form, Pagination } from "react-bootstrap";
-
+import { UserVerificationStatus } from "../enums/user-verification-status.enum"
 const UsersListLayer = () => {
 
   const router = useRouter();
@@ -113,19 +113,61 @@ const UsersListLayer = () => {
 
     setSelectedAction(actionType);
 
-    if (actionType === "REJECTED") {
+    if (actionType === UserVerificationStatus.REJECTED) {
       setShowRejectionReason(true);
     } else {
 
+      if (actionType === UserVerificationStatus.COMPLETE) {
+        confirmAcceptation(verification)
+      }
+
       handleCloseModal();
+
+
     }
   };
 
-  const confirmRejection = async (currentVerification) => {
-    if (rejectionReason.trim() === "") {
-      alert("Por favor ingresa una razón de rechazo");
+
+  const changeActiveInactive = async (user, status) => {
+
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/user/update/${user}`;
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.error('No access token found in localStorage');
       return;
     }
+
+    const body = {
+      isActive: status
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+
+      const data = await response.json();
+
+      //window.location.reload(); 
+      return data;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  const confirmAcceptation = async (currentVerification) => {
+
 
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/user/verification/${currentVerification.id}`;
     const accessToken = localStorage.getItem('accessToken');
@@ -136,13 +178,13 @@ const UsersListLayer = () => {
     }
 
     const body = {
-      status: "REJECTED",
-      rejectionReason: rejectionReason
+      status: UserVerificationStatus.COMPLETE,
+
     };
 
     try {
       const response = await fetch(url, {
-        method: 'PATCH', 
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`
@@ -161,16 +203,63 @@ const UsersListLayer = () => {
       setShowRejectionReason(false);
       handleCloseModal();
 
-      router.refresh();
+      window.location.reload();
       return data;
     } catch (error) {
       setShowRejectionReason(false);
       handleCloseModal();
       console.error('Error:', error);
     }
+  };
 
 
+  const confirmRejection = async (currentVerification) => {
+    if (rejectionReason.trim() === "") {
+      alert("Por favor ingresa una razón de rechazo");
+      return;
+    }
 
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/user/verification/${currentVerification.id}`;
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.error('No access token found in localStorage');
+      return;
+    }
+
+    const body = {
+      status: UserVerificationStatus.REJECTED,
+      rejectionReason: rejectionReason
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!response.ok) {
+        setShowRejectionReason(false);
+        handleCloseModal();
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+
+      const data = await response.json();
+      setShowRejectionReason(false);
+      handleCloseModal();
+
+      window.location.reload();
+      return data;
+    } catch (error) {
+      setShowRejectionReason(false);
+      handleCloseModal();
+      console.error('Error:', error);
+    }
   };
 
   if (isLoading) {
@@ -291,6 +380,7 @@ const UsersListLayer = () => {
                 <th className="text-center">Email</th>
                 <th className="text-center">Registration Step</th>
                 <th className="text-center">Action</th>
+                <th className="text-center">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -301,8 +391,11 @@ const UsersListLayer = () => {
                     <td className="text-center">
                       {user.firstName} {user.lastName}
                     </td>
+
                     <td className="text-center">{user.email}</td>
+
                     <td className="text-center">{user.registrationStep}</td>
+
                     <td className="text-center">
                       <button
                         className="btn btn-sm btn-primary"
@@ -310,6 +403,37 @@ const UsersListLayer = () => {
                       >
                         Ver Más
                       </button>
+                    </td>
+                    <td className="text-center">
+                      <div className="d-flex align-items-center">
+                        <Form.Check
+                          type="switch"
+                          checked={user.isActive} // Valor controlado por el estado
+                          onChange={async (e) => {
+                            const newStatus = !user.isActive; // Cambia el estado
+
+                            // Actualiza el estado local (optimistic update)
+                            const updatedUsers = users.map(u =>
+                              u.id === user.id ? { ...u, isActive: newStatus } : u
+                            );
+                            setUsers(updatedUsers);
+
+                            try {
+                              // Envía la petición al servidor
+                              await changeActiveInactive(user.id, newStatus);
+                            } catch (error) {
+                              // Si falla, revierte el estado local
+                              const revertedUsers = users.map(u =>
+                                u.id === user.id ? { ...u, isActive: user.isActive } : u
+                              );
+                              setUsers(revertedUsers);
+                              console.error("Error updating user status:", error);
+                            }
+                          }}
+                          className="me-2"
+                        />
+                        <span>{user.isActive ? 'Active' : 'Inactive'}</span>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -430,7 +554,7 @@ const UsersListLayer = () => {
               </div>
             )}
 
-            {selectedAction === "REJECTED" && (
+            {selectedAction === UserVerificationStatus.REJECTED && (
               <div className="col-12 mt-4">
                 <Form.Group>
                   <Form.Label>Razón de Rechazo</Form.Label>
@@ -449,13 +573,27 @@ const UsersListLayer = () => {
           <Modal.Footer>
             {!showRejectionReason ? (
               <>
-                <Button variant="success" onClick={() => handleAction('APPROVE', currentVerification)}>
-                  Aprobar
-                </Button>
+                {currentVerification &&
+                  currentVerification.status != UserVerificationStatus.COMPLETE &&
+                  verifications.length > 0 && (
+                    <Button
+                      variant="success"
+                      onClick={() => handleAction(UserVerificationStatus.COMPLETE, currentVerification)}
+                    >
+                      Aprobar
+                    </Button>
+                  )}
 
-                <Button variant="danger" onClick={() => handleAction('REJECTED', currentVerification)}>
-                  Rechazar
-                </Button>
+                {currentVerification &&
+                  currentVerification.status != UserVerificationStatus.REJECTED &&
+                  verifications.length > 0 && (
+                    <Button
+                      variant="danger"
+                      onClick={() => handleAction(UserVerificationStatus.REJECTED, currentVerification)}
+                    >
+                      Rechazar
+                    </Button>
+                  )}
 
 
               </>
@@ -467,7 +605,7 @@ const UsersListLayer = () => {
             <Button
               variant="secondary"
               onClick={() => {
-                if (selectedAction === "REJECTED" && showRejectionReason) {
+                if (selectedAction === UserVerificationStatus.REJECTED && showRejectionReason) {
                   setShowRejectionReason(false);
                   setRejectionReason("");
                   setSelectedAction("");
