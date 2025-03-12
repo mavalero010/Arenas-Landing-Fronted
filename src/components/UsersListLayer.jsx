@@ -408,21 +408,21 @@ const UsersListLayer = () => {
                       <div className="d-flex align-items-center">
                         <Form.Check
                           type="switch"
-                          checked={user.isActive} // Valor controlado por el estado
+                          checked={user.isActive} 
                           onChange={async (e) => {
-                            const newStatus = !user.isActive; // Cambia el estado
+                            const newStatus = !user.isActive; 
 
-                            // Actualiza el estado local (optimistic update)
                             const updatedUsers = users.map(u =>
                               u.id === user.id ? { ...u, isActive: newStatus } : u
                             );
+
+                            console.log("Updated: ",updatedUsers);
+                            
                             setUsers(updatedUsers);
 
                             try {
-                              // Envía la petición al servidor
                               await changeActiveInactive(user.id, newStatus);
                             } catch (error) {
-                              // Si falla, revierte el estado local
                               const revertedUsers = users.map(u =>
                                 u.id === user.id ? { ...u, isActive: user.isActive } : u
                               );
