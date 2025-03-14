@@ -237,25 +237,10 @@ const MasterLayout = ({ children }) => {
                     href='/users-list'
                     className={pathname === "/users-list" ? "active-page" : ""}
                   >
-                    Lista
+                    Listar
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href='/verification-users'
-                    className={pathname === "/verification-users" ? "active-page" : ""}
-                  >
-                    Verificación KYC
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='/activation'
-                    className={pathname === "/activation" ? "active-page" : ""}
-                  >
-                    Activación
-                  </Link>
-                </li>
+             
               </ul>
             </li>
 

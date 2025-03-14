@@ -1,4 +1,4 @@
-import Dashboard from "@/components/Dashboard";
+import Dashboard from "@/components/DashBoard";
 import MasterLayout from "@/masterLayout/MasterLayout";
 
 export const metadata = {
