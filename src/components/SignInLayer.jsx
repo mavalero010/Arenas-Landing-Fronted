@@ -8,8 +8,15 @@ const SignInLayer = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +65,8 @@ const SignInLayer = () => {
           <img src='assets/images/auth/auth-img.png' alt='' />
         </div>
       </div>
-      <div className='auth-right py-32 px-24 d-flex flex-column justify-content-center'>
+
+      <div className='bg-yellowprimary auth-right py-32 px-24 d-flex flex-column justify-content-center'>
         <div className='max-w-464-px mx-auto w-100'>
           <div>
             <Link href='/' className='mb-40 max-w-290-px'>
@@ -95,7 +103,7 @@ const SignInLayer = () => {
                   <Icon icon='solar:lock-password-outline' />
                 </span>
                 <input
-                  type='password'
+                  type={showPassword ? "text" : "password"}
                   className='form-control h-56-px bg-neutral-50 radius-12'
                   id='your-password'
                   placeholder='Password'
@@ -104,6 +112,11 @@ const SignInLayer = () => {
                   required
                 />
               </div>
+              <span
+                  className="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light"
+                  data-toggle="#your-password"
+                  onClick={togglePasswordVisibility}
+                />
             </div>
             <div className=''>
               <div className='d-flex justify-content-between gap-2'>
@@ -117,7 +130,7 @@ const SignInLayer = () => {
                     Remember me{" "}
                   </label>
                 </div>
-                <Link href='#' className='text-primary-600 fw-medium'>
+                <Link href='/' className='text-vine fw-medium'>
                   Forgot Password?
                 </Link>
               </div>

@@ -1,0 +1,16 @@
+@import "custom/variables";
+@import "~bootstrap/scss/bootstrap";
+
+$colors: (
+  "yellowprimary": $yellowprimary,
+  "vine":$vine
+);
+
+@each $name, $color in $colors {
+    .bg-#{$name} {
+      background-color: $color;
+    }
+    .text-#{$name} {
+        color: $color;
+      }
+  }

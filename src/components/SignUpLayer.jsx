@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const SignUpLayer = () => {
   // Estados para capturar los campos del formulario
@@ -14,6 +15,12 @@ const SignUpLayer = () => {
   // Estado para mensajes de respuesta y errores
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -164,7 +171,7 @@ const SignUpLayer = () => {
                     <Icon icon="solar:lock-password-outline" />
                   </span>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     className="form-control h-56-px bg-neutral-50 radius-12"
                     id="your-password"
                     placeholder="Password"
@@ -176,6 +183,7 @@ const SignUpLayer = () => {
                 <span
                   className="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light"
                   data-toggle="#your-password"
+                  onClick={togglePasswordVisibility}
                 />
               </div>
               <span className="mt-12 text-sm text-secondary-light">

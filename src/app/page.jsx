@@ -1,6 +1,5 @@
 import Dashboard from "@/components/DashBoard";
 import MasterLayout from "@/masterLayout/MasterLayout";
-
 export const metadata = {
   title: "WowDash NEXT JS - Admin Dashboard Multipurpose Bootstrap 5 Template",
   description:

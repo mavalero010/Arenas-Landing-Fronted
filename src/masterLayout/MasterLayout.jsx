@@ -998,18 +998,7 @@ const MasterLayout = ({ children }) => {
                           My Profile
                         </Link>
                       </li>
-                      <li>
-                        <Link
-                          className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'
-                          href='/email'
-                        >
-                          <Icon
-                            icon='tabler:message-check'
-                            className='icon text-xl'
-                          />{" "}
-                          Inbox
-                        </Link>
-                      </li>
+                   
                       <li>
                         <Link
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'
