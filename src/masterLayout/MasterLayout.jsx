@@ -1013,6 +1013,18 @@ const MasterLayout = ({ children }) => {
                       </li>
                       <li>
                         <Link
+                          className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'
+                          href='/add-user'
+                        >
+                          <Icon
+                            icon='icon-park-outline:add-user'
+                            className='icon text-xl'
+                          />
+                          Add admin
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3'
                           href='/sign-in'
                           onClick={(e) => {
