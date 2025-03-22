@@ -1,21 +1,20 @@
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 
-// Función para verificar si el token ha expirado
 export const isTokenExpired = (token) => {
   if (!token) return true;
   try {
     const decoded = jwtDecode(token);
     return decoded.exp * 1000 < Date.now();
   } catch (error) {
-    return true; // Si hay error decodificando, lo consideramos expirado
+    return true; 
   }
 };
 
-// Función para refrescar el accessToken
 export const refreshAccessToken = async () => {
   const refreshToken = localStorage.getItem("refreshToken");
-
+  console.log("Refresh");
+  
   if (!refreshToken) return null;
 
   try {
@@ -23,13 +22,15 @@ export const refreshAccessToken = async () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${refreshToken}`
       },
-      body: JSON.stringify({ refreshToken }),
+      //body: JSON.stringify({ refreshToken }),
     });
 
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
       return data.accessToken;
     } else {
       return null;
@@ -41,7 +42,6 @@ export const refreshAccessToken = async () => {
 };
 
 
-// Función para refrescar el accessToken
 export const logout = async (router) => {
   const accessToken = localStorage.getItem("accessToken");
 
@@ -67,15 +67,23 @@ export const logout = async (router) => {
   } catch (error) {
     console.error("Error de red:", error);
   } finally {
-    // Eliminar los tokens del localStorage
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
 
-    // Redirigir al usuario a la página de inicio de sesión
+    localStorage.removeItem("admin_id");
+    localStorage.removeItem("admin_username");
+    localStorage.removeItem("admin_firstName");
+    localStorage.removeItem("admin_lastName");
+    localStorage.removeItem("admin_email");
+    localStorage.removeItem("admin_role");
+    localStorage.removeItem("admin_accessLevel");
+
+    localStorage.removeItem("admin_isManager");
+    localStorage.removeItem("admin_isSuperAdmin");
+
     router.push("/sign-in");
   }
 };
 
-// Función para redirigir al login
 
 

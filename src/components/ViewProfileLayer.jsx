@@ -1,6 +1,7 @@
 "use client";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useState } from "react";
+import { useState,useEffect  } from "react";
+import { isTokenExpired } from "@/utils/authUtils";
 
 const ViewProfileLayer = () => {
   const [imagePreview, setImagePreview] = useState(
@@ -8,6 +9,93 @@ const ViewProfileLayer = () => {
   );
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  // Cargar datos iniciales desde localStorage
+  useEffect(() => {
+    setFormData({
+      username: localStorage.getItem("admin_username") || "",
+      email: localStorage.getItem("admin_email") || "",
+      firstName: localStorage.getItem("admin_firstName") || "",
+      lastName: localStorage.getItem("admin_lastName") || "",
+      password: "",
+      confirmPassword: ""
+    });
+
+    console.log(formData);
+    
+  }, []);
+
+
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(false);
+
+    try {
+      if (formData.password || formData.confirmPassword) {
+        if (formData.password !== formData.confirmPassword) {
+          throw new Error("Passwords do not match");
+          
+        }
+      }
+
+      let token = localStorage.getItem("accessToken");
+      if (!token || isTokenExpired(token)) {
+        token = await refreshAccessToken();
+      }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/update`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          password: formData.password || undefined
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error al actualizar el perfil");
+      }
+
+      // Actualizar localStorage
+      localStorage.setItem("admin_username", formData.username);
+      localStorage.setItem("admin_email", formData.email);
+      localStorage.setItem("admin_firstName", formData.firstName);
+      localStorage.setItem("admin_lastName", formData.lastName);
+
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 3000);
+      //window.location.reload()
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   // Toggle function for password field
   const togglePasswordVisibility = () => {
@@ -41,78 +129,74 @@ const ViewProfileLayer = () => {
             <div className='text-center border border-top-0 border-start-0 border-end-0'>
               <img
                 src='assets/images/user-grid/user-grid-img14.png'
-                alt=''
+                alt='Admin profile'
                 className='border br-white border-width-2-px w-200-px h-200-px rounded-circle object-fit-cover'
               />
-              <h6 className='mb-0 mt-16'>Jacob Jones</h6>
+              <h6 className='mb-0 mt-16'>
+                {localStorage.getItem("admin_firstName")} {localStorage.getItem("admin_lastName")}
+              </h6>
               <span className='text-secondary-light mb-16'>
-                ifrandom@gmail.com
+                {localStorage.getItem("admin_email")}
               </span>
             </div>
+
             <div className='mt-24'>
-              <h6 className='text-xl mb-16'>Personal Info</h6>
+              <h6 className='text-xl mb-16'>Información del Administrador</h6>
               <ul>
                 <li className='d-flex align-items-center gap-1 mb-12'>
                   <span className='w-30 text-md fw-semibold text-primary-light'>
-                    Full Name
+                    Nombre completo
                   </span>
                   <span className='w-70 text-secondary-light fw-medium'>
-                    : Will Jonto
+                    : {localStorage.getItem("admin_firstName")} {localStorage.getItem("admin_lastName")}
                   </span>
                 </li>
                 <li className='d-flex align-items-center gap-1 mb-12'>
                   <span className='w-30 text-md fw-semibold text-primary-light'>
-                    {" "}
-                    Email
+                    Usuario
                   </span>
                   <span className='w-70 text-secondary-light fw-medium'>
-                    : willjontoax@gmail.com
+                    : {localStorage.getItem("admin_username")}
                   </span>
                 </li>
                 <li className='d-flex align-items-center gap-1 mb-12'>
                   <span className='w-30 text-md fw-semibold text-primary-light'>
-                    {" "}
-                    Phone Number
+                    Rol
                   </span>
                   <span className='w-70 text-secondary-light fw-medium'>
-                    : (1) 2536 2561 2365
+                    : {localStorage.getItem("admin_role")}
                   </span>
                 </li>
                 <li className='d-flex align-items-center gap-1 mb-12'>
                   <span className='w-30 text-md fw-semibold text-primary-light'>
-                    {" "}
-                    Department
+                    Nivel de acceso
                   </span>
                   <span className='w-70 text-secondary-light fw-medium'>
-                    : Design
+                    : {localStorage.getItem("admin_accessLevel")}
                   </span>
                 </li>
                 <li className='d-flex align-items-center gap-1 mb-12'>
                   <span className='w-30 text-md fw-semibold text-primary-light'>
-                    {" "}
-                    Designation
+                    Es Manager
                   </span>
                   <span className='w-70 text-secondary-light fw-medium'>
-                    : UI UX Designer
+                    : {localStorage.getItem("admin_isManager") === "true" ? "Sí" : "No"}
                   </span>
                 </li>
                 <li className='d-flex align-items-center gap-1 mb-12'>
                   <span className='w-30 text-md fw-semibold text-primary-light'>
-                    {" "}
-                    Languages
+                    Super Admin
                   </span>
                   <span className='w-70 text-secondary-light fw-medium'>
-                    : English
+                    : {localStorage.getItem("admin_isSuperAdmin") === "true" ? "Sí" : "No"}
                   </span>
                 </li>
-                <li className='d-flex align-items-center gap-1'>
+                <li className='d-flex align-items-center gap-1 mb-12'>
                   <span className='w-30 text-md fw-semibold text-primary-light'>
-                    {" "}
-                    Bio
+                    ID
                   </span>
                   <span className='w-70 text-secondary-light fw-medium'>
-                    : Lorem Ipsum&nbsp;is simply dummy text of the printing and
-                    typesetting industry.
+                    : {localStorage.getItem("admin_id")}
                   </span>
                 </li>
               </ul>
@@ -120,6 +204,8 @@ const ViewProfileLayer = () => {
           </div>
         </div>
       </div>
+
+
       <div className='col-lg-8'>
         <div className='card h-100'>
           <div className='card-body p-24'>
@@ -218,7 +304,7 @@ const ViewProfileLayer = () => {
                   </div>
                 </div>
                 {/* Upload Image End */}
-                <form action='#'>
+                <form action='#' onSubmit={handleSubmit}>
                   <div className='row'>
                     <div className='col-sm-6'>
                       <div className='mb-20'>
@@ -226,30 +312,15 @@ const ViewProfileLayer = () => {
                           htmlFor='name'
                           className='form-label fw-semibold text-primary-light text-sm mb-8'
                         >
-                          Full Name
-                          <span className='text-danger-600'>*</span>
+                          Username
                         </label>
                         <input
                           type='text'
                           className='form-control radius-8'
-                          id='name'
-                          placeholder='Enter Full Name'
-                        />
-                      </div>
-                    </div>
-                    <div className='col-sm-6'>
-                      <div className='mb-20'>
-                        <label
-                          htmlFor='email'
-                          className='form-label fw-semibold text-primary-light text-sm mb-8'
-                        >
-                          Email <span className='text-danger-600'>*</span>
-                        </label>
-                        <input
-                          type='email'
-                          className='form-control radius-8'
-                          id='email'
-                          placeholder='Enter email address'
+                          id='username'
+                          value={formData.username}
+                          onChange={handleInputChange}
+                          placeholder={localStorage.getItem("admin_username")}
                         />
                       </div>
                     </div>
@@ -259,125 +330,70 @@ const ViewProfileLayer = () => {
                           htmlFor='number'
                           className='form-label fw-semibold text-primary-light text-sm mb-8'
                         >
-                          Phone
+                          Email
                         </label>
                         <input
                           type='email'
                           className='form-control radius-8'
-                          id='number'
-                          placeholder='Enter phone number'
+                          id='email'
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          placeholder={localStorage.getItem("admin_email")}
                         />
                       </div>
                     </div>
                     <div className='col-sm-6'>
                       <div className='mb-20'>
                         <label
-                          htmlFor='depart'
+                          htmlFor='text'
                           className='form-label fw-semibold text-primary-light text-sm mb-8'
                         >
-                          Department
-                          <span className='text-danger-600'>*</span>{" "}
+                          Firstname
                         </label>
-                        <select
-                          className='form-control radius-8 form-select'
-                          id='depart'
-                          defaultValue='Select Event Title'
-                        >
-                          <option value='Select Event Title' disabled>
-                            Select Event Title
-                          </option>
-                          <option value='Enter Event Title'>
-                            Enter Event Title
-                          </option>
-                          <option value='Enter Event Title One'>
-                            Enter Event Title One
-                          </option>
-                          <option value='Enter Event Title Two'>
-                            Enter Event Title Two
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className='col-sm-6'>
-                      <div className='mb-20'>
-                        <label
-                          htmlFor='desig'
-                          className='form-label fw-semibold text-primary-light text-sm mb-8'
-                        >
-                          Designation
-                          <span className='text-danger-600'>*</span>{" "}
-                        </label>
-                        <select
-                          className='form-control radius-8 form-select'
-                          id='desig'
-                          defaultValue='Select Designation Title'
-                        >
-                          <option value='Select Designation Title' disabled>
-                            Select Designation Title
-                          </option>
-                          <option value='Enter Designation Title'>
-                            Enter Designation Title
-                          </option>
-                          <option value='Enter Designation Title One'>
-                            Enter Designation Title One
-                          </option>
-                          <option value='Enter Designation Title Two'>
-                            Enter Designation Title Two
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className='col-sm-6'>
-                      <div className='mb-20'>
-                        <label
-                          htmlFor='Language'
-                          className='form-label fw-semibold text-primary-light text-sm mb-8'
-                        >
-                          Language
-                          <span className='text-danger-600'>*</span>{" "}
-                        </label>
-                        <select
-                          className='form-control radius-8 form-select'
-                          id='Language'
-                          defaultValue='Select Language'
-                        >
-                          <option value='Select Language' disabled>
-                            Select Language
-                          </option>
-                          <option value='English'>English</option>
-                          <option value='Bangla'>Bangla</option>
-                          <option value='Hindi'>Hindi</option>
-                          <option value='Arabic'>Arabic</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className='col-sm-12'>
-                      <div className='mb-20'>
-                        <label
-                          htmlFor='desc'
-                          className='form-label fw-semibold text-primary-light text-sm mb-8'
-                        >
-                          Description
-                        </label>
-                        <textarea
-                          name='#0'
+                        <input
+                          type='text'
                           className='form-control radius-8'
-                          id='desc'
-                          placeholder='Write description...'
-                          defaultValue={""}
+                          id='firstName'
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                          placeholder={localStorage.getItem("admin_firstName")}
                         />
                       </div>
                     </div>
+                    <div className='col-sm-6'>
+                      <div className='mb-20'>
+                        <label
+                          htmlFor='email'
+                          className='form-label fw-semibold text-primary-light text-sm mb-8'
+                        >
+                          Lastname
+                        </label>
+                        <input
+                          type='text'
+                          className='form-control radius-8'
+                          id='lastName'
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                          placeholder={localStorage.getItem("admin_lastName")}
+                        />
+                      </div>
+                    </div>
+
                   </div>
+
+                  {error && <div className='alert alert-danger mb-20'>{error}</div>}
+                  {success && <div className='alert alert-success mb-20'>Profile updated successfully!</div>}
+
                   <div className='d-flex align-items-center justify-content-center gap-3'>
                     <button
                       type='button'
                       className='border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-56 py-11 radius-8'
+                      onClick={() => window.location.reload()}
                     >
                       Cancel
                     </button>
                     <button
-                      type='button'
+                      type='submit'
                       className='btn btn-primary border border-primary-600 text-md px-56 py-12 radius-8'
                     >
                       Save
@@ -394,7 +410,7 @@ const ViewProfileLayer = () => {
               >
                 <div className='mb-20'>
                   <label
-                    htmlFor='your-password'
+                    htmlFor='password'
                     className='form-label fw-semibold text-primary-light text-sm mb-8'
                   >
                     New Password <span className='text-danger-600'>*</span>
@@ -403,13 +419,13 @@ const ViewProfileLayer = () => {
                     <input
                       type={passwordVisible ? "text" : "password"}
                       className='form-control radius-8'
-                      id='your-password'
+                      id='password'
+                      onChange={handleInputChange}
                       placeholder='Enter New Password*'
                     />
                     <span
-                      className={`toggle-password ${
-                        passwordVisible ? "ri-eye-off-line" : "ri-eye-line"
-                      } cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light`}
+                      className={`toggle-password ${passwordVisible ? "ri-eye-off-line" : "ri-eye-line"
+                        } cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light`}
                       onClick={togglePasswordVisibility}
                     ></span>
                   </div>
@@ -417,7 +433,7 @@ const ViewProfileLayer = () => {
 
                 <div className='mb-20'>
                   <label
-                    htmlFor='confirm-password'
+                    htmlFor='confirmPassword'
                     className='form-label fw-semibold text-primary-light text-sm mb-8'
                   >
                     Confirm Password <span className='text-danger-600'>*</span>
@@ -426,15 +442,15 @@ const ViewProfileLayer = () => {
                     <input
                       type={confirmPasswordVisible ? "text" : "password"}
                       className='form-control radius-8'
-                      id='confirm-password'
+                      id='confirmPassword'
+                      onChange={handleInputChange}
                       placeholder='Confirm Password*'
                     />
                     <span
-                      className={`toggle-password ${
-                        confirmPasswordVisible
-                          ? "ri-eye-off-line"
-                          : "ri-eye-line"
-                      } cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light`}
+                      className={`toggle-password ${confirmPasswordVisible
+                        ? "ri-eye-off-line"
+                        : "ri-eye-line"
+                        } cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light`}
                       onClick={toggleConfirmPasswordVisibility}
                     ></span>
                   </div>

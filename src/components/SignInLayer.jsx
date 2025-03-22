@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { AdminAccessLevel } from "../enums/admin-access-level.enum"
 
 const SignInLayer = () => {
   const router = useRouter();
@@ -22,9 +23,8 @@ const SignInLayer = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    console.log(process.env.NEXT_PUBLIC_BASE_URL);
-    
-    console.log(`${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/login`);
+
+    //console.log(`${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/login`);
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}admin/auth/login`, {
@@ -39,6 +39,7 @@ const SignInLayer = () => {
       });
 
       const data = await response.json();
+console.log(data);
 
       if (!response.ok) {
         throw new Error(data.message || "Error en el inicio de sesión");
@@ -47,7 +48,20 @@ const SignInLayer = () => {
       // Guardar tokens en localStorage
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      
+
+      // Almacenar información del admin
+      localStorage.setItem("admin_id", data.admin.id);
+      localStorage.setItem("admin_username", data.admin.username);
+      localStorage.setItem("admin_firstName", data.admin.firstName);
+      localStorage.setItem("admin_lastName", data.admin.lastName);
+      localStorage.setItem("admin_email", data.admin.email);
+      localStorage.setItem("admin_role", data.admin.role);
+      localStorage.setItem("admin_accessLevel", data.admin.accessLevel);
+
+      // Campos calculados (booleans)
+      localStorage.setItem("admin_isManager", data.admin.accessLevel >= AdminAccessLevel.MANAGER);
+      localStorage.setItem("admin_isSuperAdmin", data.admin.accessLevel >= AdminAccessLevel.SUPER_ADMIN);
+
       // Redirigir a la página principal
       router.push("/");
 
@@ -83,7 +97,7 @@ const SignInLayer = () => {
                 {error}
               </div>
             )}
-            
+
             <div className='icon-field mb-16'>
               <span className='icon top-50 translate-middle-y'>
                 <Icon icon='mage:email' />
@@ -113,10 +127,10 @@ const SignInLayer = () => {
                 />
               </div>
               <span
-                  className="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light"
-                  data-toggle="#your-password"
-                  onClick={togglePasswordVisibility}
-                />
+                className="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light"
+                data-toggle="#your-password"
+                onClick={togglePasswordVisibility}
+              />
             </div>
             <div className=''>
               <div className='d-flex justify-content-between gap-2'>

@@ -309,7 +309,25 @@ const MasterLayout = ({ children }) => {
                 </li>
               </ul>
             </li>
+            <li className='dropdown'>
+              <Link href='#'>
+              <Icon icon='material-symbols:account-balance' className='menu-icon' />
+                <span>Bancos</span>
+              </Link>
+              <ul className='sidebar-submenu'>
+                <li>
+                  <Link
+                    href='/add-bank'
+                    className={pathname === "/add-bank" ? "active-page" : ""}
+                  >
+                    Añadir
+                  </Link>
+                </li>
+ 
+              </ul>
 
+
+            </li>
             <li className='dropdown'>
               <Link href='#'>
                 <Icon icon='iconoir:bell' className='menu-icon' />
