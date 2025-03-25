@@ -421,7 +421,7 @@ const MasterLayout = ({ children }) => {
                   <Icon icon='heroicons:bars-3-solid' className='icon' />
                 </button>
                 <form className='navbar-search'>
-                  <input type='text' name='search' placeholder='Search' />
+                  <input type='text' name='search' placeholder='Buscar' />
                   <Icon icon='ion:search-outline' className='icon' />
                 </form>
               </div>
@@ -437,7 +437,7 @@ const MasterLayout = ({ children }) => {
                     data-bs-toggle='dropdown'
                   >
                     <img
-                      src='assets/images/lang-flag.png'
+                      src='assets/images/flags/idioma.png'
                       alt='Wowdash'
                       className='w-24 h-24 object-fit-cover rounded-circle'
                     />
@@ -446,7 +446,7 @@ const MasterLayout = ({ children }) => {
                     <div className='py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2'>
                       <div>
                         <h6 className='text-lg text-primary-light fw-semibold mb-0'>
-                          Choose Your Language
+                         Elige tu idioma
                         </h6>
                       </div>
                     </div>
@@ -463,7 +463,7 @@ const MasterLayout = ({ children }) => {
                               className='w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0'
                             />
                             <span className='text-md fw-semibold mb-0'>
-                              English
+                              Ingles
                             </span>
                           </span>
                         </label>
@@ -486,7 +486,7 @@ const MasterLayout = ({ children }) => {
                               className='w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0'
                             />
                             <span className='text-md fw-semibold mb-0'>
-                              Japan
+                              Español
                             </span>
                           </span>
                         </label>
@@ -496,145 +496,7 @@ const MasterLayout = ({ children }) => {
                           name='crypto'
                           id='japan'
                         />
-                      </div>
-                      <div className='form-check style-check d-flex align-items-center justify-content-between mb-16'>
-                        <label
-                          className='form-check-label line-height-1 fw-medium text-secondary-light'
-                          htmlFor='france'
-                        >
-                          <span className='text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'>
-                            <img
-                              src='assets/images/flags/flag3.png'
-                              alt=''
-                              className='w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0'
-                            />
-                            <span className='text-md fw-semibold mb-0'>
-                              France
-                            </span>
-                          </span>
-                        </label>
-                        <input
-                          className='form-check-input'
-                          type='radio'
-                          name='crypto'
-                          id='france'
-                        />
-                      </div>
-                      <div className='form-check style-check d-flex align-items-center justify-content-between mb-16'>
-                        <label
-                          className='form-check-label line-height-1 fw-medium text-secondary-light'
-                          htmlFor='germany'
-                        >
-                          <span className='text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'>
-                            <img
-                              src='assets/images/flags/flag4.png'
-                              alt=''
-                              className='w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0'
-                            />
-                            <span className='text-md fw-semibold mb-0'>
-                              Germany
-                            </span>
-                          </span>
-                        </label>
-                        <input
-                          className='form-check-input'
-                          type='radio'
-                          name='crypto'
-                          id='germany'
-                        />
-                      </div>
-                      <div className='form-check style-check d-flex align-items-center justify-content-between mb-16'>
-                        <label
-                          className='form-check-label line-height-1 fw-medium text-secondary-light'
-                          htmlFor='korea'
-                        >
-                          <span className='text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'>
-                            <img
-                              src='assets/images/flags/flag5.png'
-                              alt=''
-                              className='w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0'
-                            />
-                            <span className='text-md fw-semibold mb-0'>
-                              South Korea
-                            </span>
-                          </span>
-                        </label>
-                        <input
-                          className='form-check-input'
-                          type='radio'
-                          name='crypto'
-                          id='korea'
-                        />
-                      </div>
-                      <div className='form-check style-check d-flex align-items-center justify-content-between mb-16'>
-                        <label
-                          className='form-check-label line-height-1 fw-medium text-secondary-light'
-                          htmlFor='bangladesh'
-                        >
-                          <span className='text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'>
-                            <img
-                              src='assets/images/flags/flag6.png'
-                              alt=''
-                              className='w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0'
-                            />
-                            <span className='text-md fw-semibold mb-0'>
-                              Bangladesh
-                            </span>
-                          </span>
-                        </label>
-                        <input
-                          className='form-check-input'
-                          type='radio'
-                          name='crypto'
-                          id='bangladesh'
-                        />
-                      </div>
-                      <div className='form-check style-check d-flex align-items-center justify-content-between mb-16'>
-                        <label
-                          className='form-check-label line-height-1 fw-medium text-secondary-light'
-                          htmlFor='india'
-                        >
-                          <span className='text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'>
-                            <img
-                              src='assets/images/flags/flag7.png'
-                              alt=''
-                              className='w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0'
-                            />
-                            <span className='text-md fw-semibold mb-0'>
-                              India
-                            </span>
-                          </span>
-                        </label>
-                        <input
-                          className='form-check-input'
-                          type='radio'
-                          name='crypto'
-                          id='india'
-                        />
-                      </div>
-                      <div className='form-check style-check d-flex align-items-center justify-content-between'>
-                        <label
-                          className='form-check-label line-height-1 fw-medium text-secondary-light'
-                          htmlFor='canada'
-                        >
-                          <span className='text-black hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'>
-                            <img
-                              src='assets/images/flags/flag8.png'
-                              alt=''
-                              className='w-36-px h-36-px bg-success-subtle text-success-main rounded-circle flex-shrink-0'
-                            />
-                            <span className='text-md fw-semibold mb-0'>
-                              Canada
-                            </span>
-                          </span>
-                        </label>
-                        <input
-                          className='form-check-input'
-                          type='radio'
-                          name='crypto'
-                          id='canada'
-                        />
-                      </div>
+                      </div> 
                     </div>
                   </div>
                 </div>
@@ -986,16 +848,25 @@ const MasterLayout = ({ children }) => {
                       className='w-40-px h-40-px object-fit-cover rounded-circle'
                     />
                   </button>
-                  <div className='dropdown-menu to-top dropdown-menu-sm'>
+                             <div className='dropdown-menu to-top dropdown-menu-sm'>
                     <div className='py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2'>
+                    <div className='d-flex align-items-center gap-2'>
+                      {/* Imagen del usuario */}
+                      <img
+                        src='assets/images/user.png'
+                        alt='User Avatar'
+                        className='rounded-circle'
+                        style={{ width: '70px', height: '70px', objectFit: 'cover' }}
+                      />
+                      {/* Contenedor del texto */}
                       <div>
                         <h6 className='text-lg text-primary-light fw-semibold mb-2'>
-                          Shaidul Islam
+                          Usuario
                         </h6>
-                        <span className='text-secondary-light fw-medium text-sm'>
-                          Admin
-                        </span>
+                        <span className='text-secondary-light fw-medium text-sm'>Admin</span>
                       </div>
+                    </div>
+
                       <button type='button' className='hover-text-danger'>
                         <Icon
                           icon='radix-icons:cross-1'
@@ -1013,10 +884,21 @@ const MasterLayout = ({ children }) => {
                             icon='solar:user-linear'
                             className='icon text-xl'
                           />{" "}
-                          My Profile
+                          Mi perfil
                         </Link>
                       </li>
-                   
+                      <li>
+                        <Link
+                          className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'
+                          href='/email'
+                        >
+                          <Icon
+                            icon='tabler:message-check'
+                            className='icon text-xl'
+                          />{" "}
+                          Bandeja
+                        </Link>
+                      </li>
                       <li>
                         <Link
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'
@@ -1026,19 +908,7 @@ const MasterLayout = ({ children }) => {
                             icon='icon-park-outline:setting-two'
                             className='icon text-xl'
                           />
-                          Setting
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'
-                          href='/add-user'
-                        >
-                          <Icon
-                            icon='icon-park-outline:add-user'
-                            className='icon text-xl'
-                          />
-                          Add admin
+                          Configuración
                         </Link>
                       </li>
                       <li>
@@ -1050,7 +920,7 @@ const MasterLayout = ({ children }) => {
                             logout(router);
                           }}
                         >
-                          <Icon icon='lucide:power' className='icon text-xl' /> Log Out
+                          <Icon icon='lucide:power' className='icon text-xl' /> Finalizar la sesión
                         </Link>
                       </li>
 
@@ -1070,11 +940,11 @@ const MasterLayout = ({ children }) => {
         <footer className='d-footer'>
           <div className='row align-items-center justify-content-between'>
             <div className='col-auto'>
-              <p className='mb-0'>© 2025 WowDash. All Rights Reserved.</p>
+              <p className='mb-0'>© 2025 GBPay. All Rights Reserved.</p>
             </div>
             <div className='col-auto'>
               <p className='mb-0'>
-                Made by <span className='text-primary-600'>wowtheme7</span>
+                Made by <span className='text-primary-600'>MENCO Studio</span>
               </p>
             </div>
           </div>

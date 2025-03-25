@@ -3,9 +3,9 @@ import VoiceGeneratorLayer from "@/components/VoiceGeneratorLayer";
 import MasterLayout from "@/masterLayout/MasterLayout";
 
 export const metadata = {
-  title: "WowDash NEXT JS - Admin Dashboard Multipurpose Bootstrap 5 Template",
+  title: "GBPay  Business",
   description:
-    "Wowdash NEXT JS is a developer-friendly, ready-to-use admin template designed for building attractive, scalable, and high-performing web applications.",
+    "GBPay © 2025. Tu plataforma confiable para transferencias internacionales rápidas, seguras y eficientes. Diseñada para facilitar la gestión de tus envíos y ofrecerte el mejor rendimiento en cada operación.",
 };
 
 const Page = () => {

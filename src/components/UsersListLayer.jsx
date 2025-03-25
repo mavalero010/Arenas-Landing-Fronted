@@ -267,7 +267,7 @@ const UsersListLayer = () => {
       <div className="card h-100 p-0 radius-12">
         <div className="card-body p-24 text-center">
           <Icon icon="eos-icons:loading" className="text-3xl" />
-          <p>Loading users...</p>
+          <p>Cargando Usuario...</p>
         </div>
       </div>
     );
@@ -280,7 +280,7 @@ const UsersListLayer = () => {
           <Icon icon="ion:warning-outline" className="text-3xl" />
           <p>Error: {error}</p>
           <Link href="/sign-in" className="btn btn-primary">
-            Please login again
+          Por favor, inicia sesión de nuevo
           </Link>
         </div>
       </div>
@@ -295,7 +295,7 @@ const UsersListLayer = () => {
           <div className="flex-grow-1">
             <Form.Control
               type='text'
-              placeholder='Search by name'
+              placeholder='Buscar por nombre'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className='bg-base h-40-px w-100'
@@ -308,11 +308,11 @@ const UsersListLayer = () => {
               onChange={(e) => setRegistrationStep(e.target.value)}
               className='form-select-sm ps-12 py-6 radius-12 h-40-px w-100'
             >
-              <option value=''>All Steps</option>
-              <option value='PHONE_SUBMISSION'>PHONE_SUBMISSION</option>
-              <option value='VERIFICATION'>VERIFICATION</option>
-              <option value='PROFILE_COMPLETION'>PROFILE_COMPLETION</option>
-              <option value='COMPLETE'>COMPLETE</option>
+              <option value=''>Todos los pasos</option>
+              <option value='PHONE_SUBMISSION'>ENVÍO TELEFÓNICO</option>
+              <option value='VERIFICATION'>VERIFICACIÓN</option>
+              <option value='PROFILE_COMPLETION'>PERFIL COMPLETO</option>
+              <option value='COMPLETE'>COMPLETO</option>
             </Form.Select>
           </div>
 
@@ -322,10 +322,10 @@ const UsersListLayer = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className='form-select-sm ps-12 py-6 radius-12 h-40-px w-100'
             >
-              <option value=''>All Statuses</option>
-              <option value='PENDING'>PENDING</option>
-              <option value='COMPLETE'>COMPLETE</option>
-              <option value='REJECTED'>REJECTED</option>
+              <option value=''>Todos los estados</option>
+              <option value='PENDING'>PENDIENTE</option>
+              <option value='COMPLETE'>COMPLETO</option>
+              <option value='REJECTED'>RECHAZADO</option>
             </Form.Select>
           </div>
 
@@ -335,9 +335,9 @@ const UsersListLayer = () => {
               onChange={(e) => setIsActive(e.target.value)}
               className='form-select-sm ps-12 py-6 radius-12 h-40-px w-100'
             >
-              <option value=''>All Users</option>
-              <option value='true'>Active</option>
-              <option value='false'>Inactive</option>
+              <option value=''>Todos los usuarios</option>
+              <option value='true'>Activo</option>
+              <option value='false'>Inactivo</option>
             </Form.Select>
           </div>
 
@@ -348,17 +348,15 @@ const UsersListLayer = () => {
               className='text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2'
             >
               <Icon icon="ion:search-outline" className='icon text-xl line-height-1' />
-              Search
+              Buscar
             </Button>
-
-
           </div>
         </div>
       </div>
       <div className="card-body p-24">
         <div className="table-responsive scroll-sm">
           <div className="flex items-center gap-3 mb-10">
-            <label className="text-sm font-medium text-gray-600 mr-10">Mostrar:</label>
+            <label className="text-sm font-medium text-gray-600 mr-10">Mostrar lista de:</label>
             <select
               value={usersPerPage}
               onChange={(e) => setUsersPerPage(Number(e.target.value))}
@@ -375,12 +373,12 @@ const UsersListLayer = () => {
           <table className="table bordered-table sm-table mb-0">
             <thead>
               <tr>
-                <th>S.L</th>
-                <th className="text-center">Name</th>
-                <th className="text-center">Email</th>
-                <th className="text-center">Registration Step</th>
-                <th className="text-center">Action</th>
-                <th className="text-center">Status</th>
+                <th>N.º</th>
+                <th className="text-center">Nombre</th>
+                <th className="text-center">Correo</th>
+                <th className="text-center">Paso de registro</th>
+                <th className="text-center">Acción</th>
+                <th className="text-center">Estado</th>
               </tr>
             </thead>
             <tbody>
@@ -440,7 +438,7 @@ const UsersListLayer = () => {
               ) : (
                 <tr>
                   <td colSpan="5" className="text-center">
-                    No users found.
+                  No se encontraron usuarios.
                   </td>
                 </tr>
               )}
@@ -479,7 +477,7 @@ const UsersListLayer = () => {
 
         <Modal show={showModal} onHide={handleCloseModal} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>Verificaciones de Usuario</Modal.Title>
+            <Modal.Title>Datos Personales</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -505,8 +503,25 @@ const UsersListLayer = () => {
                 {/* Contenido de la verificación actual */}
                 {currentVerification && (
                   <div key={currentVerification.id} className="row g-4">
+                    {/* Foto */}
                     <div className="col-md-4">
-                      <h6>Front ID</h6>
+                      <h6>Retrato Facial</h6>
+                      <img
+                        src={currentVerification.selfieImageUrl}
+                        className="img-fluid rounded"
+                        alt="Selfie"
+                        style={{
+                          width: '200px', // Ancho del tamaño selfie
+                          height: '200px', // Alto del tamaño selfie
+                          objectFit: 'cover', // Para mantener el enfoque y recortar si es necesario
+                          borderRadius: '50%' // Forma circular para parecer más a un selfie
+                        }}
+                      />
+                    </div>
+
+                    {/* Imagen Delantera */}
+                    <div className="col-md-4">
+                      <h6>Lado Frontal</h6>
                       <img
                         src={currentVerification.idFrontImageUrl}
                         className="img-fluid rounded"
@@ -514,8 +529,9 @@ const UsersListLayer = () => {
                       />
                     </div>
 
+                    {/* Imagen Trasera */}
                     <div className="col-md-4">
-                      <h6>Back ID</h6>
+                      <h6>Lado Posterior</h6>
                       <img
                         src={currentVerification.idBackImageUrl}
                         className="img-fluid rounded"
@@ -523,17 +539,9 @@ const UsersListLayer = () => {
                       />
                     </div>
 
-                    <div className="col-md-4">
-                      <h6>Selfie</h6>
-                      <img
-                        src={currentVerification.selfieImageUrl}
-                        className="img-fluid rounded"
-                        alt="Selfie"
-                      />
-                    </div>
-
+                    {/* Detalles de la Verificación */}
                     <div className="col-12">
-                      <div className="card mt-3">
+                      <div className="card mt-3 custom-card">
                         <div className="card-body">
                           <h6>Detalles de la Verificación</h6>
                           <p>Estado: {currentVerification.status}</p>
@@ -546,6 +554,7 @@ const UsersListLayer = () => {
                     </div>
                   </div>
                 )}
+
               </>
             ) : (
               <div className="text-center py-4">

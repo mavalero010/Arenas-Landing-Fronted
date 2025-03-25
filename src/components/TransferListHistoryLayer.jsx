@@ -55,7 +55,7 @@ const TransferListHistoryLayer = () => {
       <div className="card h-100 p-0 radius-12">
         <div className="card-body p-24 text-center">
           <Icon icon="eos-icons:loading" className="text-3xl" />
-          <p>Loading users...</p>
+          <p>Cargando Usuarios...</p>
         </div>
       </div>
     );
@@ -68,7 +68,7 @@ const TransferListHistoryLayer = () => {
           <Icon icon="ion:warning-outline" className="text-3xl" />
           <p>Error: {error}</p>
           <Link href="/sign-in" className="btn btn-primary">
-            Please login again
+          Por favor, inicia sesión de nuevo
           </Link>
         </div>
       </div>
@@ -80,13 +80,14 @@ const TransferListHistoryLayer = () => {
   {/* Header */}
   <div className="card-header border-bottom bg-base py-16 px-24 d-flex flex-wrap gap-3 justify-content-between">
     <div className="d-flex flex-wrap gap-3 justify-content-center text-center">
-      <span className="text-md fw-medium text-secondary-light mb-0">Show</span>
+      <span className="text-md fw-medium text-secondary-light mb-0">Filtros</span>
       <select
-        className="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px"
+        className="form-select form-select-sm ps-6 py-6 radius-12 h-40-px"
+        style={{ width: '120px' }} // Ajusta el ancho según tus necesidades
         defaultValue="Select Number"
       >
         <option value="Select Number" disabled>
-          Select Number
+          Seleccionar
         </option>
         {[...Array(10)].map((_, i) => (
           <option key={i} value={i + 1}>
@@ -94,12 +95,13 @@ const TransferListHistoryLayer = () => {
           </option>
         ))}
       </select>
+
       <form className="navbar-search">
         <input
           type="text"
           className="bg-base h-40-px w-auto"
           name="search"
-          placeholder="Search"
+          placeholder="Buscar"
         />
         <Icon icon="ion:search-outline" className="icon" />
       </form>
@@ -108,7 +110,7 @@ const TransferListHistoryLayer = () => {
         defaultValue="Select Status"
       >
         <option value="Select Status" disabled>
-          Select Status
+          Selecionar Estado
         </option>
         <option value="Active">Active</option>
         <option value="Inactive">Inactive</option>
@@ -119,7 +121,7 @@ const TransferListHistoryLayer = () => {
       className="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
     >
       <Icon icon="ic:baseline-plus" className="icon text-xl line-height-1" />
-      Add New User
+      Registrar Usuario
     </Link>
   </div>
 
@@ -138,14 +140,14 @@ const TransferListHistoryLayer = () => {
                     id="selectAll"
                   />
                 </div>
-                S.L
+                N.º
               </div>
             </th>
-            <th scope="col" className="text-center">Name</th>
-            <th scope="col" className="text-center">Email</th>
-            <th scope="col" className="text-center"># Transactions</th>
-            <th scope="col" className="text-center">Latest Transaction</th>
-            <th scope="col" className="text-center">Action</th>
+            <th scope="col" className="text-center">Nombre</th>
+            <th scope="col" className="text-center">Correo</th>
+            <th scope="col" className="text-center"># Transacciones</th>
+            <th scope="col" className="text-center">Última transacción</th>
+            <th scope="col" className="text-center">Acción</th>
           </tr>
         </thead>
 
@@ -195,7 +197,7 @@ const TransferListHistoryLayer = () => {
                         href={`#`} // Aquí podrías ajustar la ruta, por ejemplo `/user/${user.id}`
                         className="btn btn-sm btn-primary"
                       >
-                        View
+                        Vista
                       </Link>
                     </div>
                   </td>
@@ -205,7 +207,7 @@ const TransferListHistoryLayer = () => {
           ) : (
             <tr>
               <td colSpan="6" className="text-center">
-                No users found.
+              No se encontraron usuarios.
               </td>
             </tr>
           )}

@@ -168,7 +168,7 @@ table.dataTable td.dt-type-date {
 }
 
 .sidebar-menu .sidebar-submenu li > .active-page {
-  background-color: var(--button-secondary);
+  background-color: #ffb20f52;
   color: var(--text-primary-light);
 }
 
@@ -220,3 +220,8 @@ table.dataTable td.dt-type-date {
   padding-bottom: 6px;
   margin-top: 1px; 
 }
+
+
+
+
+

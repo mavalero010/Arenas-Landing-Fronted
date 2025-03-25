@@ -372,7 +372,8 @@ html {
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: #f3f2f7 !important;
+
   color: var(--text-secondary-light);
   font-family: "Inter", sans-serif;
   font-size: 1rem;
@@ -445,7 +446,7 @@ address {
 
 ul,
 ol {
-  margin: 0;
+  margin: 0px;
   padding: 0;
   list-style: none;
 }
@@ -1535,7 +1536,7 @@ th {
 /* === color css end === */
 /* === bg css start === */
 .bg-primary-50 {
-  background-color: var(--primary-50) !important;
+  background-color: #f5efff !important;
 }
 
 .bg-primary-100 {
@@ -3187,7 +3188,7 @@ th {
 }
 
 .bg-base {
-  background-color: var(--white) !important;
+  background-color: #f5efff !important;
 }
 
 .bg-base-50 {
@@ -6765,7 +6766,7 @@ h6,
 /* === text-align css end === */
 /* === border css start === */
 .border {
-  border: 1px solid var(--border-color) !important;
+  border: 1px solid #FCEB0A !important;
 }
 
 .border-start {
@@ -12856,7 +12857,7 @@ textarea:active {
 }
 
 .form-switch .form-check-input:checked {
-  background-color: var(--primary-600);
+  background-color: #b525ff;
 }
 
 .form-switch .form-check-input:checked::before {
@@ -14665,7 +14666,7 @@ td.fc-header-center {
 
 .chat-single-message.right .chat-message-content {
   width: 100%;
-  background-color: var(--brand);
+  background-color: #FCEB0A;
   border-radius: 16px 16px 0 16px;
   -webkit-border-radius: 16px 16px 0 16px;
   -moz-border-radius: 16px 16px 0 16px;
@@ -15230,7 +15231,7 @@ td.fc-header-center {
 /* === navbar css start === */
 .navbar-header {
   height: 4.5rem;
-  background-color: var(--white);
+  background-color: #f3f2f7 !important;
   position: sticky;
   top: 0;
   padding: 1rem 1.5rem;
@@ -15310,7 +15311,7 @@ td.fc-header-center {
 
 .navbar-search .icon {
   position: absolute;
-  top: 50%;
+  top: 41%;
   transform: translateY(-50%);
   inset-inline-start: 0.9375rem;
   font-size: 1.125rem;
@@ -15336,25 +15337,28 @@ td.fc-header-center {
   color: #fff;
 }
 
-.positioned-icon {
-  inset-inline-start: 16px;
-}
+
 
 /* === navbar css end === */
 /* === sidebar css start === */
 .sidebar {
   position: fixed;
-  inset-block-start: 0;
+  inset-block-start: 3px;
   inset-inline-start: -100%;
   width: 15.625rem;
-  height: 100vh;
-  background-color: var(--white);
+  height: 90vh;
+  
+  background-color: #FFFF00;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(var(--sectionThree-color)), to(var(--sectionTwo-color)));
+  background-image: linear-gradient(#fcff00, #ffee00);
+  border-radius: 24px;
   z-index: 3;
+  top: 17px;
 }
 
 @media (min-width: 1200px) {
   .sidebar {
-    inset-inline-start: 0;
+    inset-inline-start: 20px;
     width: 13.75rem;
   }
 }
@@ -15365,7 +15369,7 @@ td.fc-header-center {
 }
 @media (min-width: 1650px) {
   .sidebar {
-    width: 19.5rem;
+    width: 17.5rem;
   }
 }
 .sidebar-close-btn {
@@ -15418,7 +15422,7 @@ td.fc-header-center {
 }
 @media (min-width: 1650px) {
   .sidebar.active:hover {
-    width: 19.5rem;
+    width: 15.5rem;
   }
 }
 .sidebar.active:hover .sidebar-logo img.light-logo {
@@ -15482,9 +15486,9 @@ td.fc-header-center {
 
 .sidebar-logo {
   height: 4.5rem;
-  padding: 0.875rem 1rem;
-  border-inline-end: 1px solid var(--neutral-200);
-  border-block-end: 1px solid var(--neutral-200);
+  padding: 3.875rem 1rem;
+  border-inline-end: 0 solid var(--neutral-200);
+  border-block-end: 0 solid var(--neutral-200);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -15506,7 +15510,7 @@ td.fc-header-center {
   height: calc(100vh - 72px);
   padding: 0.75rem 1rem;
   overflow-y: auto;
-  border-inline-end: 1px solid var(--neutral-200);
+  border-inline-end: 0 solid var(--neutral-200);
 }
 
 .sidebar-menu-area:hover::-webkit-scrollbar-thumb {
@@ -15566,13 +15570,13 @@ td.fc-header-center {
 }
 .sidebar-menu li.dropdown.open > a,
 .sidebar-menu li.dropdown.dropdown-open > a {
-  background-color: var(--brand);
-  color: #fff;
+  background-color: #FCEB0A;
+  color: #000000;
 }
 
 .sidebar-menu li.dropdown.open > a:hover,
 .sidebar-menu li.dropdown.dropdown-open > a:hover {
-  color: #fff;
+  color: #6c757d;
 }
 
 .sidebar-menu li.dropdown.open > a::after,
@@ -15587,27 +15591,72 @@ td.fc-header-center {
 }
 
 .sidebar-menu li > a.active-page {
-  background-color: var(--brand);
-  color: #fff;
+  background-color: #FCEB0A;
+  color: #E100FF;
 }
 
 .sidebar-menu li > a.active-page:hover {
   color: #fff;
 }
 
+/* Estilos generales */
 .sidebar-menu li a {
-  padding: 0.625rem 0.75rem;
+  padding: 0.625rem 0.25rem;
   font-weight: 500;
   display: flex;
   align-items: center;
-  color: var(--text-secondary-light);
+  color: #000000;
   border-radius: 8px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
   font-size: 0.875rem;
+  text-decoration: none; /* Elimina el subrayado por defecto */
 }
+
+.sidebar-menu li a svg,
+.sidebar-menu li a i {
+  width: 1.5rem; /* Tamaño fijo del ancho */
+  height: 1.5rem; /* Tamaño fijo del alto */
+  margin-right: 0.5rem; /* Separación del texto */
+  flex-shrink: 0; /* Evita que se reduzcan */
+}
+
+/* Estilo cuando el menú está encogido */
+.sidebar-menu.sidebar-collapsed li a {
+  padding: 0.625rem; /* Ajusta el padding para reducir el espacio */
+  justify-content: flex-start; /* Asegura que los íconos se alineen al inicio */
+}
+
+.sidebar-menu.sidebar-collapsed li a svg,
+.sidebar-menu.sidebar-collapsed li a i {
+  margin-right: 0; /* Quita el margen para alinear más los íconos a la izquierda */
+}
+
+
+/* Estilo normal */
+.menu-icon {
+  color: #81868b; /* Color inicial del ícono */
+  font-size: 1.5rem; /* Ajusta el tamaño si es necesario */
+}
+
+/* Color del texto */
+.sidebar-menu li a span {
+  color: #000000; /* Color inicial del texto */
+}
+
+/* Efecto hover para íconos y texto */
+.sidebar-menu li a:hover .menu-icon {
+  color: #6d6d6d; /* Cambia esto al color que prefieras para el hover del ícono */
+}
+
+.sidebar-menu li a:hover span {
+  color: #DD00FF; /* Cambia esto al color que prefieras para el hover del texto */
+}
+
+
+.sidebar-menu li a:hover {
+  text-decoration: none; /* Asegura que no haya subrayado al pasar el puntero */
+  color: #6c757d; /* Opcional: Cambia el color al pasar el puntero */
+}
+
 
 @media (min-width: 1650px) {
   .sidebar-menu li a {
@@ -15615,7 +15664,7 @@ td.fc-header-center {
   }
 }
 .sidebar-menu li a:hover {
-  color: var(--brand);
+  color: #C800FF;
 }
 
 .sidebar-menu li a .menu-icon {
@@ -15657,8 +15706,15 @@ td.fc-header-center {
   color: var(--text-primary-light);
 }
 
+.logo-icon {
+  margin-top: 10px; /* Margen superior */
+  position: absolute; /* Posición relativa a su contenedor */
+  left: 26px; /* O usa right: 20px; */
+}
+
+
 .sidebar-menu .sidebar-submenu li a {
-  padding: 0.4375rem 0.75rem;
+  padding: 0.4375rem 1.75rem;
 }
 
 .sidebar-menu .sidebar-menu-group-title {
@@ -15719,8 +15775,37 @@ td.fc-header-center {
 /* === footer css start === */
 .d-footer {
   padding: 1.375rem 1.5rem;
-  background-color: var(--white);
+  background-color: #f3f2f7 !important;
   margin-block-start: auto;
 }
 
 /* === footer css end === */
+
+
+
+/* add css */
+
+.auth-right {
+  background-color: #fff700; /* Color de fondo */
+  min-height: 100vh; /* Asegura que el contenedor ocupe la pantalla completa */
+  padding: 32px 24px;
+}
+
+
+
+.custom-card {
+  border-radius: 4px !important; /* Ajusta el radio del borde a tu preferencia */
+}
+
+.modal-title {
+  font-size: 1.9rem !important; /* Ajusta el tamaño de la letra */
+}
+
+
+
+
+
+
+.navbar-search .icon:hover {
+  color: #000; /* Cambiar color al pasar el mouse */
+}
