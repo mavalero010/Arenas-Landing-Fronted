@@ -73,130 +73,125 @@ const SignInLayer = () => {
 
   return (
     <section className='auth bg-base d-flex flex-wrap'>
-      <div className='auth-left d-lg-block d-none'>
-        <div className='d-flex align-items-center flex-column h-100 justify-content-center'>
-          <img src='assets/images/auth/auth-img.png' alt='' />
-        </div>
+    <div className='auth-left d-lg-block d-none'>
+      <div className='d-flex align-items-center flex-column h-100 justify-content-center'>
+        <img src='assets/images/auth/auth-img.png' alt='' />
       </div>
-
-      <div className='bg-yellowprimary auth-right py-32 px-24 d-flex flex-column justify-content-center'>
-        <div className='max-w-464-px mx-auto w-100'>
-          <div>
-            <Link href='/' className='mb-40 max-w-290-px'>
-              <img src='assets/images/logo.png' alt='' />
-            </Link>
-            <h4 className='mb-12'>Sign In to your Account</h4>
-            <p className='mb-32 text-secondary-light text-lg'>
-              Welcome back! please enter your detail
-            </p>
+    </div>
+    <div className='auth-right py-32 px-24 d-flex flex-column justify-content-center'>
+      <div className='max-w-464-px mx-auto w-100'>
+        <div>
+          <Link href='/' className='mb-40 max-w-290-px'>
+            <img src='assets/images/logo_home.png' alt='' />
+          </Link>
+          <h4 className='mb-12'>Iniciar sesión</h4>
+          <p className='mb-32 text-secondary-light text-lg'>
+          ¡Bienvenido de nuevo! Por favor, introduce tus datos.
+          </p>
+        </div>
+        <form onSubmit={handleSubmit}>
+          {error && (
+            <div className="alert alert-danger mb-16">
+              {error}
+            </div>
+          )}
+          
+          <div className='icon-field mb-16'>
+            <span className='icon top-50 translate-middle-y'>
+              <Icon icon='mage:email' />
+            </span>
+            <input
+              type='email'
+              className='form-control h-56-px bg-neutral-50 radius-12'
+              placeholder='Correo'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-          <form onSubmit={handleSubmit}>
-            {error && (
-              <div className="alert alert-danger mb-16">
-                {error}
-              </div>
-            )}
-
-            <div className='icon-field mb-16'>
+          <div className='position-relative mb-20'>
+            <div className='icon-field'>
               <span className='icon top-50 translate-middle-y'>
-                <Icon icon='mage:email' />
+                <Icon icon='solar:lock-password-outline' />
               </span>
               <input
-                type='email'
+                type='password'
                 className='form-control h-56-px bg-neutral-50 radius-12'
-                placeholder='Email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                id='your-password'
+                placeholder='Contraseña'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
-            <div className='position-relative mb-20'>
-              <div className='icon-field'>
-                <span className='icon top-50 translate-middle-y'>
-                  <Icon icon='solar:lock-password-outline' />
-                </span>
+          </div>
+          <div className=''>
+            <div className='d-flex justify-content-between gap-2'>
+              <div className='form-check style-check d-flex align-items-center'>
                 <input
-                  type={showPassword ? "text" : "password"}
-                  className='form-control h-56-px bg-neutral-50 radius-12'
-                  id='your-password'
-                  placeholder='Password'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
+                  className='form-check-input border border-neutral-300'
+                  type='checkbox'
+                  id='remeber'
                 />
+                <label className='form-check-label' htmlFor='remeber'>
+                Acuérdate de mí{" "}
+                </label>
               </div>
-              <span
-                className="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light"
-                data-toggle="#your-password"
-                onClick={togglePasswordVisibility}
-              />
+              <Link href='#' className='text-primary-600 fw-medium'>
+              ¿Has olvidado tu contraseña?
+              </Link>
             </div>
-            <div className=''>
-              <div className='d-flex justify-content-between gap-2'>
-                <div className='form-check style-check d-flex align-items-center'>
-                  <input
-                    className='form-check-input border border-neutral-300'
-                    type='checkbox'
-                    id='remeber'
-                  />
-                  <label className='form-check-label' htmlFor='remeber'>
-                    Remember me{" "}
-                  </label>
-                </div>
-                <Link href='/' className='text-vine fw-medium'>
-                  Forgot Password?
-                </Link>
-              </div>
-            </div>
+          </div>
+          <button
+            type='submit'
+            className='btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32'
+            disabled={loading}
+          >
+            {loading ? (
+              <Icon icon="eos-icons:loading" className="text-xl" />
+            ) : (
+              "inicia sesión "
+            )}
+          </button>
+          <div className='mt-32 center-border-horizontal text-center'>
+            <span className='bg-base z-1 px-4'>O inicia sesión con</span>
+          </div>
+          <div className='mt-32 d-flex align-items-center gap-3'>
             <button
-              type='submit'
-              className='btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32'
-              disabled={loading}
+              type='button'
+              className='fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50'
             >
-              {loading ? (
-                <Icon icon="eos-icons:loading" className="text-xl" />
-              ) : (
-                "Sign In"
-              )}
+              <Icon
+                icon='ic:baseline-facebook'
+                className='text-primary-600 text-xl line-height-1'
+              />
+              Google
             </button>
-            <div className='mt-32 center-border-horizontal text-center'>
-              <span className='bg-base z-1 px-4'>Or sign in with</span>
-            </div>
-            <div className='mt-32 d-flex align-items-center gap-3'>
-              <button
-                type='button'
-                className='fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50'
-              >
-                <Icon
-                  icon='ic:baseline-facebook'
-                  className='text-primary-600 text-xl line-height-1'
-                />
-                Google
-              </button>
-              <button
-                type='button'
-                className='fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50'
-              >
-                <Icon
-                  icon='logos:google-icon'
-                  className='text-primary-600 text-xl line-height-1'
-                />
-                Google
-              </button>
-            </div>
-            <div className='mt-32 text-center text-sm'>
-              <p className='mb-0'>
-                Don’t have an account?{" "}
-                <Link href='/sign-up' className='text-primary-600 fw-semibold'>
-                  Sign Up
-                </Link>
-              </p>
-            </div>
+            <button
+              type='button'
+              className='fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50'
+            >
+              <Icon
+                icon='logos:google-icon'
+                className='text-primary-600 text-xl line-height-1'
+              />
+              Google
+            </button>
+          </div>
+          <div className='mt-32 text-center text-sm'>
+            <p className='mb-0'>
+            ¿No tienes una cuenta?{" "}
+              <Link href='/sign-up' className='text-primary-600 fw-semibold'>
+              Inscribirse
+              </Link>
+            </p>
+          </div>
 
-          </form>
-        </div>
+        </form>
       </div>
-    </section>
+    </div>
+  </section>
+
   );
 };
 
