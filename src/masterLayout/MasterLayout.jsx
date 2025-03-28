@@ -98,7 +98,7 @@ const MasterLayout = ({ children }) => {
       }
 
       if (!accessToken) {
-        router.push("/sign-in"); 
+        router.push("/sign-in");
       } else {
         setIsAuthenticated(true);
       }
@@ -111,7 +111,7 @@ const MasterLayout = ({ children }) => {
   // After the authentication check
   useEffect(() => {
     if (!isAuthenticated || typeof window === "undefined") return;
-    
+
     // Initialize Bootstrap dropdowns if Bootstrap is used
     if (typeof window !== "undefined" && window.bootstrap) {
       const dropdownElementList = document.querySelectorAll('[data-bs-toggle="dropdown"]');
@@ -121,11 +121,11 @@ const MasterLayout = ({ children }) => {
     }
 
     // Add any other initialization code for interactive elements here
-    
+
     // Make sure all dropdown menus are working
     const dropdownButtons = document.querySelectorAll('.dropdown > button, .dropdown > a');
     dropdownButtons.forEach(button => {
-      button.addEventListener('click', function(e) {
+      button.addEventListener('click', function (e) {
         // For elements that are not handled by Bootstrap
         if (!button.getAttribute('data-bs-toggle')) {
           e.preventDefault();
@@ -144,7 +144,7 @@ const MasterLayout = ({ children }) => {
     return () => {
       // Clean up event listeners when component unmounts
       dropdownButtons.forEach(button => {
-        button.removeEventListener('click', () => {});
+        button.removeEventListener('click', () => { });
       });
     };
   }, [isAuthenticated]);
@@ -240,7 +240,7 @@ const MasterLayout = ({ children }) => {
                     Listar
                   </Link>
                 </li>
-             
+
               </ul>
             </li>
 
@@ -293,8 +293,8 @@ const MasterLayout = ({ children }) => {
                 </li>
                 <li>
                   <Link
-                    href='/commissions'
-                    className={pathname === "/commissions" ? "active-page" : ""}
+                    href='/add-comission'
+                    className={pathname === "/add-comission" ? "active-page" : ""}
                   >
                     Comisiones
                   </Link>
@@ -311,7 +311,7 @@ const MasterLayout = ({ children }) => {
             </li>
             <li className='dropdown'>
               <Link href='#'>
-              <Icon icon='material-symbols:account-balance' className='menu-icon' />
+                <Icon icon='material-symbols:account-balance' className='menu-icon' />
                 <span>Bancos</span>
               </Link>
               <ul className='sidebar-submenu'>
@@ -323,7 +323,7 @@ const MasterLayout = ({ children }) => {
                     Añadir
                   </Link>
                 </li>
- 
+
               </ul>
 
 
@@ -446,7 +446,7 @@ const MasterLayout = ({ children }) => {
                     <div className='py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2'>
                       <div>
                         <h6 className='text-lg text-primary-light fw-semibold mb-0'>
-                         Elige tu idioma
+                          Elige tu idioma
                         </h6>
                       </div>
                     </div>
@@ -496,7 +496,7 @@ const MasterLayout = ({ children }) => {
                           name='crypto'
                           id='japan'
                         />
-                      </div> 
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -848,24 +848,29 @@ const MasterLayout = ({ children }) => {
                       className='w-40-px h-40-px object-fit-cover rounded-circle'
                     />
                   </button>
-                             <div className='dropdown-menu to-top dropdown-menu-sm'>
+                  <div className='dropdown-menu to-top dropdown-menu-sm'>
                     <div className='py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2'>
-                    <div className='d-flex align-items-center gap-2'>
-                      {/* Imagen del usuario */}
-                      <img
-                        src='assets/images/user.png'
-                        alt='User Avatar'
-                        className='rounded-circle'
-                        style={{ width: '70px', height: '70px', objectFit: 'cover' }}
-                      />
-                      {/* Contenedor del texto */}
-                      <div>
-                        <h6 className='text-lg text-primary-light fw-semibold mb-2'>
-                          Usuario
-                        </h6>
-                        <span className='text-secondary-light fw-medium text-sm'>Admin</span>
+                      <div className='d-flex align-items-center gap-2'>
+                        {/* Imagen del usuario */}
+                        <img
+                          src='assets/images/user.png'
+                          alt='User Avatar'
+                          className='rounded-circle'
+                          style={{ width: '70px', height: '70px', objectFit: 'cover' }}
+                        />
+                        {/* Contenedor del texto */}
+                        <div>
+                          <h6 className='text-lg text-primary-light fw-semibold mb-2'>
+                            {localStorage.getItem("admin_firstName") && localStorage.getItem("admin_lastName")
+                              ? `${localStorage.getItem("admin_firstName")} ${localStorage.getItem("admin_lastName")}`
+                              : 'Usuario'}
+                          </h6>
+                          <span className='text-secondary-light fw-medium text-sm'>
+                            {typeof window !== 'undefined' && localStorage.getItem("admin_role")
+                              ? localStorage.getItem("admin_role")
+                              : 'Admin'}
+                          </span>                        </div>
                       </div>
-                    </div>
 
                       <button type='button' className='hover-text-danger'>
                         <Icon

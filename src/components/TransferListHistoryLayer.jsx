@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { isTokenExpired, refreshAccessToken } from "@/utils/authUtils";
+import { Modal, Button, Form, Pagination } from "react-bootstrap";
 
 const TransferListHistoryLayer = () => {
   const router = useRouter();
@@ -116,13 +117,15 @@ const TransferListHistoryLayer = () => {
         <option value="Inactive">Inactive</option>
       </select>
     </div>
-    <Link
-      href="/add-user"
-      className="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2"
-    >
-      <Icon icon="ic:baseline-plus" className="icon text-xl line-height-1" />
-      Registrar Usuario
-    </Link>
+    <div className="flex-grow-0">
+            <Button
+              variant="primary"
+              className='text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2'
+            >
+              <Icon icon="ion:search-outline" className='icon text-xl line-height-1' />
+              Buscar
+            </Button>
+          </div>
   </div>
 
   <div className="card-body p-24 text-center">
