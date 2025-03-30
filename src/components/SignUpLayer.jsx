@@ -91,9 +91,9 @@ const SignUpLayer = () => {
             <Link href="/" className="mb-40 max-w-290-px">
               <img src="/assets/images/logo.png" alt="Logo" />
             </Link>
-            <h4 className="mb-12">Sign Up to your Account</h4>
+            <h4 className="mb-12">Registra tu cuenta</h4>
             <p className="mb-32 text-secondary-light text-lg">
-              Welcome! Please enter your details.
+              Bienvenido! Por favor ingresa toda información.
             </p>
           </div>
           <form onSubmit={handleSubmit}>
@@ -115,7 +115,7 @@ const SignUpLayer = () => {
               <input
                 type="text"
                 className="form-control h-56-px bg-neutral-50 radius-12"
-                placeholder="Username"
+                placeholder="Usuario"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -129,7 +129,7 @@ const SignUpLayer = () => {
               <input
                 type="text"
                 className="form-control h-56-px bg-neutral-50 radius-12"
-                placeholder="First Name"
+                placeholder="Nombre"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -143,7 +143,7 @@ const SignUpLayer = () => {
               <input
                 type="text"
                 className="form-control h-56-px bg-neutral-50 radius-12"
-                placeholder="Last Name"
+                placeholder="Apellido"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -187,7 +187,7 @@ const SignUpLayer = () => {
                 />
               </div>
               <span className="mt-12 text-sm text-secondary-light">
-                Your password must have at least 8 characters
+                Tu contraseña debe tener al menos 8 caracteres.
               </span>
             </div>
             {/* Terms and conditions */}
@@ -201,13 +201,13 @@ const SignUpLayer = () => {
                     required
                   />
                   <label className="form-check-label text-sm" htmlFor="condition">
-                    By creating an account you agree to our{" "}
+                    Para crear una cuenta acepta nuestros{" "}
                     <Link href="#" className="text-primary-600 fw-semibold">
-                      Terms &amp; Conditions
+                      Terminos &amp; Condiciones
                     </Link>{" "}
-                    and{" "}
+                    Y{" "}
                     <Link href="#" className="text-primary-600 fw-semibold">
-                      Privacy Policy
+                      Politicas de privacidad
                     </Link>
                   </label>
                 </div>
@@ -217,10 +217,10 @@ const SignUpLayer = () => {
               type="submit"
               className="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32"
             >
-              Sign Up
+              Regístrate
             </button>
             <div className="mt-32 center-border-horizontal text-center">
-              <span className="bg-base z-1 px-4">Or sign up with</span>
+              <span className="bg-base z-1 px-4">O regístrate con</span>
             </div>
             <div className="mt-32 d-flex align-items-center gap-3">
               <button
@@ -246,9 +246,9 @@ const SignUpLayer = () => {
             </div>
             <div className="mt-32 text-center text-sm">
               <p className="mb-0">
-                Already have an account?{" "}
+                Ya tienes una cuenta?{" "}
                 <Link href="/sign-in" className="text-primary-600 fw-semibold">
-                  Sign In
+                  Inicia sesión
                 </Link>
               </p>
             </div>
