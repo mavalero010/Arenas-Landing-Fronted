@@ -93,7 +93,7 @@ const SignUpLayer = () => {
             </Link>
             <h4 className="mb-12">Registra tu cuenta</h4>
             <p className="mb-32 text-secondary-light text-lg">
-              Bienvenido! Por favor ingresa toda información.
+              Bienvenido! Por favor ingresa todos los campos.
             </p>
           </div>
           <form onSubmit={handleSubmit}>
