@@ -10,7 +10,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img1.png'
+                  src='/assets/images/gallery/gallery-img1.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -24,7 +24,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img2.png'
+                  src='/assets/images/gallery/gallery-img2.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -38,7 +38,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img3.png'
+                  src='/assets/images/gallery/gallery-img3.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -52,7 +52,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img4.png'
+                  src='/assets/images/gallery/gallery-img4.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -66,7 +66,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img5.png'
+                  src='/assets/images/gallery/gallery-img5.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -80,7 +80,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img6.png'
+                  src='/assets/images/gallery/gallery-img6.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -94,7 +94,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img7.png'
+                  src='/assets/images/gallery/gallery-img7.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -108,7 +108,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img8.png'
+                  src='/assets/images/gallery/gallery-img8.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -122,7 +122,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img9.png'
+                  src='/assets/images/gallery/gallery-img9.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -136,7 +136,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img10.png'
+                  src='/assets/images/gallery/gallery-img10.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -150,7 +150,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img11.png'
+                  src='/assets/images/gallery/gallery-img11.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />
@@ -164,7 +164,7 @@ const GalleryGridLayer = () => {
                 className='popup-img w-100 h-100 d-flex radius-12 overflow-hidden'
               >
                 <img
-                  src='assets/images/gallery/gallery-img12.png'
+                  src='/assets/images/gallery/gallery-img12.png'
                   alt=''
                   className='hover-scale-img__img w-100 h-100 object-fit-cover'
                 />

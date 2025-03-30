@@ -1536,7 +1536,7 @@ th {
 /* === color css end === */
 /* === bg css start === */
 .bg-primary-50 {
-  background-color: #f5efff !important;
+  background-color: #ede5ff !important;
 }
 
 .bg-primary-100 {
@@ -3188,7 +3188,7 @@ th {
 }
 
 .bg-base {
-  background-color: #f5efff !important;
+  background-color: #ede5ff !important;
 }
 
 .bg-base-50 {
@@ -12556,7 +12556,7 @@ textarea::placeholder {
 textarea:focus,
 textarea:active {
   box-shadow: none;
-  border-color: var(--primary-600) !important;
+  border-color: #f148ff !important;
   background-color: transparent;
 }
 
@@ -15311,7 +15311,7 @@ td.fc-header-center {
 
 .navbar-search .icon {
   position: absolute;
-  top: 41%;
+  top: 53%;
   transform: translateY(-50%);
   inset-inline-start: 0.9375rem;
   font-size: 1.125rem;
@@ -15362,9 +15362,9 @@ td.fc-header-center {
     width: 13.75rem;
   }
 }
-@media (min-width: 1400px) {
+@media (min-width: 1500px) {
   .sidebar {
-    width: 17.1875rem;
+    width: 14.1875rem;
   }
 }
 @media (min-width: 1650px) {
@@ -15807,5 +15807,29 @@ td.fc-header-center {
 
 
 .navbar-search .icon:hover {
-  color: #000; /* Cambiar color al pasar el mouse */
+  color: #000 !important; /* Cambiar color al pasar el mouse */
+}
+
+
+/* Cambiar el color al pasar el mouse para todos los textos */
+.dropdown .dropdown-item {
+  transition: color 0.3s ease;
+}
+
+.dropdown .dropdown-item:hover {
+  color: purple; /* Color morado al pasar el mouse */
+}
+
+/* Excluir "Finalizar la sesión" */
+.dropdown .dropdown-item[href="/sign-in"]:hover {
+  color: inherit; /* Mantén el color original */
+}
+
+
+/* Fondo blanco para el contenedor del buscador */
+.flex-grow-0 {
+  background-color: white !important; /* Fondo blanco */
+  padding: 0px; /* Opcional: Espaciado interno */
+  border-radius: 8px; /* Opcional: Bordes redondeados */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Opcional: Sombra suave */
 }
