@@ -210,7 +210,7 @@ const TransferListHistoryLayer = () => {
           ) : (
             <tr>
               <td colSpan="6" className="text-center">
-              No se encontraron usuarios.
+              No se encontraron transacciones.
               </td>
             </tr>
           )}

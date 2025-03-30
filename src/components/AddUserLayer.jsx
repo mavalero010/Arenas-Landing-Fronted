@@ -105,11 +105,11 @@ const AddUserLayer = ({ creatorId }) => {
               <div className='card-body'>
                 <div className='mb-24 mt-16'>
                 </div>
-
+                <p className="text-lg">Añadir adminitrador</p>
                 <form onSubmit={handleSubmit}>
                   <div className='mb-20'>
                     <label className='form-label fw-semibold text-primary-light text-sm mb-8'>
-                      Username <span className='text-danger-600'>*</span>
+                      Usuario <span className='text-danger-600'>*</span>
                     </label>
                     <input
                       type='text'
@@ -123,7 +123,7 @@ const AddUserLayer = ({ creatorId }) => {
 
                   <div className='mb-20'>
                     <label className='form-label fw-semibold text-primary-light text-sm mb-8'>
-                      First Name <span className='text-danger-600'>*</span>
+                      Primer nombre <span className='text-danger-600'>*</span>
                     </label>
                     <input
                       type='text'
@@ -137,7 +137,7 @@ const AddUserLayer = ({ creatorId }) => {
 
                   <div className='mb-20'>
                     <label className='form-label fw-semibold text-primary-light text-sm mb-8'>
-                      Last Name <span className='text-danger-600'>*</span>
+                      Apellido <span className='text-danger-600'>*</span>
                     </label>
                     <input
                       type='text'
@@ -165,7 +165,7 @@ const AddUserLayer = ({ creatorId }) => {
 
                   <div className='mb-20'>
                     <label className='form-label fw-semibold text-primary-light text-sm mb-8'>
-                      Password <span className='text-danger-600'>*</span>
+                      Contraseña <span className='text-danger-600'>*</span>
                     </label>
                     <input
                       type='password'
@@ -179,7 +179,7 @@ const AddUserLayer = ({ creatorId }) => {
 
                   <div className='mb-20'>
                     <label className='form-label fw-semibold text-primary-light text-sm mb-8'>
-                      Access Level <span className='text-danger-600'>*</span>
+                      Nivel de acceso <span className='text-danger-600'>*</span>
                     </label>
                     <select
                       className='form-control radius-8 form-select'
@@ -225,13 +225,13 @@ const AddUserLayer = ({ creatorId }) => {
                         accessLevel: 0,
                       })}
                     >
-                      Cancel
+                      Cancelar
                     </button>
                     <button
                       type='submit'
                       className='btn btn-primary border border-primary-600 text-md px-56 py-12 radius-8'
                     >
-                      Create Admin
+                      Crear admin
                     </button>
                   </div>
                 </form>

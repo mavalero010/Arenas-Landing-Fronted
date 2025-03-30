@@ -293,8 +293,9 @@ const MasterLayout = ({ children }) => {
                 </li>
                 <li>
                   <Link
-                    href='/add-comission'
-                    className={pathname === "/add-comission" ? "active-page" : ""}
+
+                    href='/comisiones'
+                    className={pathname === "/comisiones" ? "active-page" : ""}
                   >
                     Comisiones
                   </Link>
@@ -317,8 +318,8 @@ const MasterLayout = ({ children }) => {
               <ul className='sidebar-submenu'>
                 <li>
                   <Link
-                    href='/add-bank'
-                    className={pathname === "/add-bank" ? "active-page" : ""}
+                    href='/addd-bank'
+                    className={pathname === "/addd-bank" ? "active-page" : ""}
                   >
                     Añadir
                   </Link>
@@ -892,6 +893,19 @@ const MasterLayout = ({ children }) => {
                           Mi perfil
                         </Link>
                       </li>
+
+                      {typeof window !== 'undefined' && localStorage.getItem("admin_isSuperAdmin") === "true" && (
+                        <li>
+                          <Link
+                            className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3'
+                            href='/add-user'
+                          >
+                            <Icon icon='lucide:user-plus' className='icon text-xl' /> Añadir admin
+                          </Link>
+                        </li>
+                      )}
+
+
                       <li>
                         <Link
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3'
@@ -916,6 +930,7 @@ const MasterLayout = ({ children }) => {
                           Configuración
                         </Link>
                       </li>
+
                       <li>
                         <Link
                           className='dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3'
@@ -928,7 +943,6 @@ const MasterLayout = ({ children }) => {
                           <Icon icon='lucide:power' className='icon text-xl' /> Finalizar la sesión
                         </Link>
                       </li>
-
                     </ul>
                   </div>
                 </div>

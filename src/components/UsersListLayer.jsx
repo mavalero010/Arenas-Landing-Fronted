@@ -29,6 +29,7 @@ const UsersListLayer = () => {
   const totalPages = Math.ceil(users.length / usersPerPage);
   const [currentVerificationPage, setCurrentVerificationPage] = useState(1);
   const [verificationsPerPage] = useState(1);
+  const [imageModal, setImageModal] = useState(false);
 
 
   const verifications = selectedUser?.userVerifications || [];
@@ -95,6 +96,7 @@ const UsersListLayer = () => {
   };
 
   const handleShowModal = (user) => {
+
     setSelectedUser(user);
     setShowModal(true);
     setCurrentVerificationPage(1);
@@ -280,7 +282,7 @@ const UsersListLayer = () => {
           <Icon icon="ion:warning-outline" className="text-3xl" />
           <p>Error: {error}</p>
           <Link href="/sign-in" className="btn btn-primary">
-          Por favor, inicia sesión de nuevo
+            Por favor, inicia sesión de nuevo
           </Link>
         </div>
       </div>
@@ -293,13 +295,21 @@ const UsersListLayer = () => {
       <div className='card-header border-bottom bg-base py-16 px-24 d-flex align-items-center justify-content-between'>
         <div className='d-flex align-items-center gap-3 w-100'>
           <div className="flex-grow-1">
-            <Form.Control
-              type='text'
-              placeholder='Buscar por nombre'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className='bg-base h-40-px w-100'
-            />
+            <div className="position-relative">
+              <Form.Control
+                type='text'
+                placeholder='Buscar por nombre'
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className='bg-base h-40-px w-100 ps-5' // Añadido padding-left (ps-5)
+              />
+              <Icon
+                icon='lucide:search'
+                className='position-absolute top-50 start-0 translate-middle-y ms-3'
+                style={{ zIndex: 5, pointerEvents: 'none' }}
+                width={20}
+              />
+            </div>
           </div>
 
           <div className="flex-grow-1">
@@ -406,16 +416,16 @@ const UsersListLayer = () => {
                       <div className="d-flex align-items-center">
                         <Form.Check
                           type="switch"
-                          checked={user.isActive} 
+                          checked={user.isActive}
                           onChange={async (e) => {
-                            const newStatus = !user.isActive; 
+                            const newStatus = !user.isActive;
 
                             const updatedUsers = users.map(u =>
                               u.id === user.id ? { ...u, isActive: newStatus } : u
                             );
 
-                            console.log("Updated: ",updatedUsers);
-                            
+                            console.log("Updated: ", updatedUsers);
+
                             setUsers(updatedUsers);
 
                             try {
@@ -438,7 +448,7 @@ const UsersListLayer = () => {
               ) : (
                 <tr>
                   <td colSpan="5" className="text-center">
-                  No se encontraron usuarios.
+                    No se encontraron usuarios.
                   </td>
                 </tr>
               )}
@@ -504,7 +514,7 @@ const UsersListLayer = () => {
                 {currentVerification && (
                   <div key={currentVerification.id} className="row g-4">
                     {/* Foto */}
-                    <div className="col-md-4">
+                    <div className="col-md-4" onClick={() => setImageModal(true)} style={{ cursor: 'pointer' }}>
                       <h6>Retrato Facial</h6>
                       <img
                         src={currentVerification.selfieImageUrl}
@@ -516,6 +526,8 @@ const UsersListLayer = () => {
                           objectFit: 'cover', // Para mantener el enfoque y recortar si es necesario
                           borderRadius: '50%' // Forma circular para parecer más a un selfie
                         }}
+                      //onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                      //onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                       />
                     </div>
 
@@ -541,17 +553,139 @@ const UsersListLayer = () => {
 
                     {/* Detalles de la Verificación */}
                     <div className="col-12">
-                      <div className="card mt-3 custom-card">
+                      <div className="card mt-3 shadow-sm">
+                        <div className="card-header bg-light">
+                          <h6 className="mb-0 fw-bold text-uppercase text-center">Detalles de la Verificación</h6>
+                        </div>
                         <div className="card-body">
-                          <h6>Detalles de la Verificación</h6>
-                          <p>Estado: {currentVerification.status}</p>
-                          <p>Fecha de envío: {new Date(currentVerification.submittedAt).toLocaleDateString()}</p>
-                          {currentVerification.rejectionReason && (
-                            <p>Razón de rechazo: {currentVerification.rejectionReason}</p>
-                          )}
+                          <div className="row">
+                            {/* Columna izquierda - Datos del usuario */}
+                            <div className="col-12 col-md-8 mb-3 mb-md-0">
+                              <div className="d-flex flex-column gap-2">
+                                <div className="d-flex align-items-center">
+                                  <i className="fas fa-envelope me-2 text-primary"></i>
+                                  <p className="mb-0">
+                                    <span className="text-muted small">Email:</span><br />
+                                    <strong>{selectedUser.email}</strong>
+                                  </p>
+                                </div>
+
+                                <div className="d-flex align-items-center">
+                                  <i className="fas fa-user me-2 text-success"></i>
+                                  <p className="mb-0">
+                                    <span className="text-muted small">Nombre:</span><br />
+                                    <strong>{selectedUser.firstName} {selectedUser.lastName}</strong>
+                                  </p>
+                                </div>
+
+                                <div className="d-flex align-items-start gap-2">
+                                  <i className="fas fa-phone-alt mt-1 text-success"></i>
+                                  <div className="flex-grow-1">
+                                    <div className="text-muted small mb-1">Teléfono:</div>
+                                    <strong>{selectedUser?.phoneNumber ? (
+                                        <span>
+                                          {selectedUser.phoneNumber.replace(
+                                            /(\+\d{1,3})(\d{3})(\d{3})(\d{4})/,
+                                            '$1 $2 $3 $4'
+                                          )}
+                                        </span>
+                                      ) : (
+                                        <span className="text-muted fst-italic">No ingresado</span>
+                                      )}</strong>
+                                  </div>
+                                </div>
+
+                                <div className="d-flex align-items-start">
+                                  <i className="fas fa-map-marker-alt me-2 text-info mt-1"></i>
+                                  <div className="flex-grow-1">
+                                    {selectedUser?.addresses?.[0] ? (
+                                      <>
+                                        {/* Línea de dirección completa */}
+                                        <p className="mb-1">
+                                          <span className="text-muted small">Dirección:</span><br />
+                                          <strong>
+                                            {[
+                                              selectedUser.addresses[0].streetAddress,
+                                              selectedUser.addresses[0].city,
+                                              selectedUser.addresses[0].region,
+                                              selectedUser.addresses[0].country
+                                            ]
+                                              .filter(Boolean)
+                                              .join(', ')}
+                                          </strong>
+                                        </p>
+
+                                        {/* Línea separada para el código postal */}
+                                        <p className="mb-0">
+                                          <span className="text-muted small">Código Postal:</span><br />
+                                          <strong>
+                                            {selectedUser.addresses[0].postalCode || "No disponible"}
+                                          </strong>
+                                        </p>
+                                      </>
+                                    ) : (
+                                      <p className="mb-0 text-muted">No hay dirección registrada</p>
+                                    )}
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                            {/* Columna derecha - Estado y fecha */}
+                            <div className="col-12 col-md-4">
+                              <div className="d-flex flex-column gap-2">
+
+                                <p className="mb-0">
+                                  <span className="text-muted small">Estado:</span><br />
+                                  <span className={`badge bg-${currentVerification.status === 'COMPLETE' ? 'success' :
+                                    currentVerification.status === 'PENDING' ? 'warning' : 'danger'} text-uppercase`}>
+                                    {currentVerification.status}
+                                  </span>
+                                </p>
+
+                                <p className="mb-0">
+                                  <span className="text-muted small">Fecha de envío:</span><br />
+                                  <strong>
+                                    {new Date(currentVerification.submittedAt).toLocaleDateString('es-ES', {
+                                      day: '2-digit',
+                                      month: 'long',
+                                      year: 'numeric'
+                                    })}
+                                  </strong>
+                                </p>
+                                {currentVerification.verifiedAt && (
+                                  <p className="mb-0">
+                                    <span className="text-muted small">Fecha de verificación:</span><br />
+                                    <strong>
+                                      {new Date(currentVerification.verifiedAt).toLocaleDateString('es-ES', {
+                                        day: '2-digit',
+                                        month: 'long',
+                                        year: 'numeric'
+                                      })}
+                                    </strong>
+                                  </p>
+
+                                )}
+                                {currentVerification.rejectionReason && (
+                                  <div className="mt-2">
+                                    <p className="mb-0 text-danger">
+                                      <span className="text-muted small">Razón de rechazo:</span><br />
+                                      <em>{currentVerification.rejectionReason}</em>
+                                    </p>
+                                  </div>
+                                )}
+
+
+
+                              </div>
+                            </div>
+
+                          </div>
                         </div>
                       </div>
                     </div>
+
                   </div>
                 )}
 
