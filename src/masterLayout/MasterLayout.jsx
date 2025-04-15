@@ -171,12 +171,12 @@ const MasterLayout = ({ children }) => {
               className='light-logo'
             />
             <img
-              src='/assets/images/logo-light.png'
+              src='https://arenasinmobiliaria.co/wp-content/uploads/2023/01/LOGO_WHITE.webp'
               alt='site logo'
               className='dark-logo'
             />
             <img
-              src='/assets/images/logo-icon.png'
+              src='https://arenasinmobiliaria.co/wp-content/uploads/2023/01/LOGO_WHITE.webp'
               alt='site logo'
               className='logo-icon'
             />
@@ -267,7 +267,7 @@ const MasterLayout = ({ children }) => {
                     type='button'
                   >
                     <img
-                      src='/assets/images/user.png'
+                      src='/assets/images/user-icon.webp'
                       alt='image_user'
                       className='w-40-px h-40-px object-fit-cover rounded-circle'
                     />

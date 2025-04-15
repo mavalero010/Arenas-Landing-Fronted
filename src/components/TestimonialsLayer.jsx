@@ -10,7 +10,7 @@ const TestimonialsLayer = () => {
               <div className='d-flex align-items-center gap-12 flex-wrap'>
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
-                    src='/assets/images/user-list/user-list1.png'
+                    src='https://images.pexels.com/photos/13430312/pexels-photo-13430312.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                     alt='Robert Fox'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
@@ -51,7 +51,7 @@ const TestimonialsLayer = () => {
               <div className='d-flex align-items-center gap-12 flex-wrap'>
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
-                    src='/assets/images/user-list/user-list2.png'
+                    src='https://images.pexels.com/photos/9271168/pexels-photo-9271168.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                     alt='Robiul Hasan'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
@@ -92,7 +92,7 @@ const TestimonialsLayer = () => {
               <div className='d-flex align-items-center gap-12 flex-wrap'>
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
-                    src='/assets/images/user-list/user-list3.png'
+                    src='https://images.pexels.com/photos/13580690/pexels-photo-13580690.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                     alt='John Doe'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
@@ -133,7 +133,7 @@ const TestimonialsLayer = () => {
               <div className='d-flex align-items-center gap-12 flex-wrap'>
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
-                    src='/assets/images/user-list/user-list4.png'
+                    src='https://images.pexels.com/photos/2100650/pexels-photo-2100650.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                     alt='Annette Black'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
@@ -174,7 +174,7 @@ const TestimonialsLayer = () => {
               <div className='d-flex align-items-center gap-12 flex-wrap'>
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
-                    src='/assets/images/user-list/user-list5.png'
+                    src='/assets/images/user-list/user-list5.jpg'
                     alt='Kathryn Murphy'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
@@ -215,7 +215,7 @@ const TestimonialsLayer = () => {
               <div className='d-flex align-items-center gap-12 flex-wrap'>
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
-                    src='/assets/images/user-list/user-list6.png'
+                    src='https://images.pexels.com/photos/3525907/pexels-photo-3525907.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                     alt='Ronald Richards'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
