@@ -11,6 +11,7 @@ const Services = () => {
   const [maxPrice, setMaxPrice] = useState("");
   const [featured, setFeatured] = useState(false);
   const [isNew, setIsNew] = useState(false);
+  const [expandedImage, setExpandedImage] = useState(null);
 
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-US', {
@@ -54,6 +55,14 @@ const Services = () => {
     fetchProperties();
   }, [city, neighborhood, type, minPrice, maxPrice, featured, isNew]);
 
+  const handleImageClick = (imageUrl) => {
+    setExpandedImage(imageUrl);
+  };
+
+  const handleCloseImage = () => {
+    setExpandedImage(null);
+  };
+
   return (
     <div>
       <section className="py-5" style={{ backgroundColor: "#f8f9fa" }}>
@@ -61,7 +70,7 @@ const Services = () => {
           <h2 className="text-center mb-4">Inmuebles Destacados</h2>
           <h4 className="text-center mb-4">Filtrar Propiedades</h4>
           {/* Inputs para los filtros */}
-          <div className="row mb-4">
+          <div className="row mb-4 justify-content-center">
             <div className="col-md-3 mb-3">
               <select className="form-select" value={city || ''} onChange={(e) => setCity(e.target.value === "Seleccione ciudad" ? null : e.target.value)}>
                 <option value="Seleccione ciudad">Seleccione ciudad</option>
@@ -141,6 +150,8 @@ const Services = () => {
                       src={property.image_url}
                       alt={property.description}
                       className="card-img-top"
+                      onClick={() => handleImageClick(property.image_url)}
+                      style={{ cursor: 'pointer' }}
                     />
                     <div className="card-body text-center">
                       <h5 className="card-title">{property.type}</h5>
@@ -150,9 +161,8 @@ const Services = () => {
                       <p className="card-text">
                         Precio: {formatCurrency(property.price)} USD
                       </p>
-                      <Link href={`/property/${property.id}`}>
-                        <button className="btn btn-primary">Ver Detalles</button>
-                      </Link>
+                      <button className="btn btn-primary" onClick={() => handleImageClick(property.image_url)}>Ver Detalles</button>
+
                     </div>
                   </div>
                 </div>
@@ -161,6 +171,13 @@ const Services = () => {
               <p className="text-center">No se encontraron propiedades.</p>
             )}
           </div>
+
+          {expandedImage && (
+            <div className="modal" style={{ display: 'block', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.8)', zIndex: 1050 }}>
+              <span onClick={handleCloseImage} style={{ position: 'absolute', top: '20px', right: '30px', color: 'white', fontSize: '30px', cursor: 'pointer' }}>&times;</span>
+              <img src={expandedImage} alt="Expanded" style={{ display: 'block', margin: 'auto', maxHeight: '80%', maxWidth: '80%', marginTop: '5%' }} />
+            </div>
+          )}
         </div>
       </section>
     </div>
