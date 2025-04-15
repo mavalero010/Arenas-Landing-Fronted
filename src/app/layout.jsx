@@ -4,9 +4,9 @@ import "./globals.css";
 import '../styles/globals.scss';
 
 export const metadata = {
-  title: "GBPay  Business",
+  title: "Arenas Inmobiliaria",
   description:
-    "GBPay © 2025. Tu plataforma confiable para transferencias internacionales rápidas, seguras y eficientes. Diseñada para facilitar la gestión de tus envíos y ofrecerte el mejor rendimiento en cada operación.",
+    "Arenas Inmobiliaria © 2025. Tu plataforma confiable para arrendar, comprar o alquilar inmuebles de forma segura.",
 };
 
 export default function RootLayout({ children }) {

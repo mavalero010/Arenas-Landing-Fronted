@@ -1,11 +1,11 @@
-import BlankPageLayer from "@/components/BlankPageLayer";
 import Breadcrumb from "@/components/Breadcrumb";
+import UsersListLayer from "@/components/Footer";
 import MasterLayout from "@/masterLayout/MasterLayout";
 
 export const metadata = {
   title: "Arenas Inmobiliaria",
   description:
-    "Arenas Inmobiliaria © 2025. Tu plataforma confiable para arrendar, comprar o alquilar inmuebles de forma segura.",
+    "Tu plataforma confiable para buscar inmuebles",
 };
 
 const Page = () => {
@@ -14,10 +14,10 @@ const Page = () => {
       {/* MasterLayout */}
       <MasterLayout>
         {/* Breadcrumb */}
-        <Breadcrumb title='Blank Page' />
+        <Breadcrumb title='Users Grid' />
 
-        {/* BlankPageLayer */}
-        <BlankPageLayer />
+        {/* UsersListLayer */}
+        <UsersListLayer />
       </MasterLayout>
     </>
   );
