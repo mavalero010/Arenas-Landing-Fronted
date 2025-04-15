@@ -11,13 +11,13 @@ const TestimonialsLayer = () => {
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
                     src='/assets/images/user-list/user-list1.png'
-                    alt=''
+                    alt='Robert Fox'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
                 </div>
                 <div className='d-flex flex-column flex-grow-1'>
                   <h6 className='text-xl mb-0'>Robert Fox</h6>
-                  <span className='text-neutral-500'>Prime Investments</span>
+                  <span className='text-neutral-500'>CEO, Prime Investments</span>
                 </div>
               </div>
               <ul className='d-flex align-items-center justify-content-end gap-1'>
@@ -39,10 +39,7 @@ const TestimonialsLayer = () => {
               </ul>
             </div>
             <p className='mt-24 text-neutral-500 text-lg mb-0'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-              ea, voluptatem adipisci dignissimos pariatur, nulla, amet quas
-              laborum sit sint laudantium fuga. Vitae hic, facilis asperiores
-              reiciendis quis qui reprehenderit.
+              "La experiencia con Prime Investments ha sido excepcional. Su atención al cliente y su dedicación a encontrar la propiedad perfecta para mí fueron impresionantes. ¡Altamente recomendados!"
             </p>
           </div>
         </div>
@@ -55,7 +52,7 @@ const TestimonialsLayer = () => {
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
                     src='/assets/images/user-list/user-list2.png'
-                    alt=''
+                    alt='Robiul Hasan'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
                 </div>
@@ -83,10 +80,7 @@ const TestimonialsLayer = () => {
               </ul>
             </div>
             <p className='mt-24 text-neutral-500 text-lg mb-0'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-              ea, voluptatem adipisci dignissimos pariatur, nulla, amet quas
-              laborum sit sint laudantium fuga. Vitae hic, facilis asperiores
-              reiciendis quis qui reprehenderit.
+              "Trabajar con este equipo fue un placer. Me ayudaron a encontrar un apartamento que se ajustaba a mis necesidades y presupuesto. ¡Definitivamente volveré a trabajar con ellos!"
             </p>
           </div>
         </div>
@@ -99,7 +93,7 @@ const TestimonialsLayer = () => {
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
                     src='/assets/images/user-list/user-list3.png'
-                    alt=''
+                    alt='John Doe'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
                 </div>
@@ -127,10 +121,7 @@ const TestimonialsLayer = () => {
               </ul>
             </div>
             <p className='mt-24 text-neutral-500 text-lg mb-0'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-              ea, voluptatem adipisci dignissimos pariatur, nulla, amet quas
-              laborum sit sint laudantium fuga. Vitae hic, facilis asperiores
-              reiciendis quis qui reprehenderit.
+              "El servicio al cliente fue excepcional. Me sentí apoyado en cada paso del proceso de compra. ¡No podría estar más feliz con mi nueva casa!"
             </p>
           </div>
         </div>
@@ -143,7 +134,7 @@ const TestimonialsLayer = () => {
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
                     src='/assets/images/user-list/user-list4.png'
-                    alt=''
+                    alt='Annette Black'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
                 </div>
@@ -171,10 +162,7 @@ const TestimonialsLayer = () => {
               </ul>
             </div>
             <p className='mt-24 text-neutral-500 text-lg mb-0'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-              ea, voluptatem adipisci dignissimos pariatur, nulla, amet quas
-              laborum sit sint laudantium fuga. Vitae hic, facilis asperiores
-              reiciendis quis qui reprehenderit.
+              "Recomiendo encarecidamente esta empresa. Su profesionalismo y dedicación son inigualables. Me ayudaron a encontrar el lugar perfecto para vivir."
             </p>
           </div>
         </div>
@@ -187,12 +175,12 @@ const TestimonialsLayer = () => {
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
                     src='/assets/images/user-list/user-list5.png'
-                    alt=''
+                    alt='Kathryn Murphy'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
                 </div>
                 <div className='d-flex flex-column flex-grow-1'>
-                  <h6 className='text-xl mb-0'>Kathryn Murphy </h6>
+                  <h6 className='text-xl mb-0'>Kathryn Murphy</h6>
                   <span className='text-neutral-500'>Business Man</span>
                 </div>
               </div>
@@ -215,10 +203,7 @@ const TestimonialsLayer = () => {
               </ul>
             </div>
             <p className='mt-24 text-neutral-500 text-lg mb-0'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-              ea, voluptatem adipisci dignissimos pariatur, nulla, amet quas
-              laborum sit sint laudantium fuga. Vitae hic, facilis asperiores
-              reiciendis quis qui reprehenderit.
+              "La atención al cliente fue excepcional. Me ayudaron a encontrar la propiedad ideal para mi negocio. ¡No puedo agradecerles lo suficiente!"
             </p>
           </div>
         </div>
@@ -230,13 +215,13 @@ const TestimonialsLayer = () => {
               <div className='d-flex align-items-center gap-12 flex-wrap'>
                 <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
                   <img
-                    src='/assets/images/user-list/user-list7.png'
-                    alt=''
+                    src='/assets/images/user-list/user-list6.png'
+                    alt='Ronald Richards'
                     className='w-100 h-100 object-fit-cover rounded-circle'
                   />
                 </div>
                 <div className='d-flex flex-column flex-grow-1'>
-                  <h6 className='text-xl mb-0'>Ronald Richards </h6>
+                  <h6 className='text-xl mb-0'>Ronald Richards</h6>
                   <span className='text-neutral-500'>Back End Developer</span>
                 </div>
               </div>
@@ -259,142 +244,7 @@ const TestimonialsLayer = () => {
               </ul>
             </div>
             <p className='mt-24 text-neutral-500 text-lg mb-0'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-              ea, voluptatem adipisci dignissimos pariatur, nulla, amet quas
-              laborum sit sint laudantium fuga. Vitae hic, facilis asperiores
-              reiciendis quis qui reprehenderit.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className='col-xxl-4 col-md-6'>
-        <div className='card rounded-3 overflow-hidden h-100'>
-          <div className='card-body p-24'>
-            <div className='d-flex align-items-start justify-content-between gap-2'>
-              <div className='d-flex align-items-center gap-12 flex-wrap'>
-                <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
-                  <img
-                    src='/assets/images/user-list/user-list8.png'
-                    alt=''
-                    className='w-100 h-100 object-fit-cover rounded-circle'
-                  />
-                </div>
-                <div className='d-flex flex-column flex-grow-1'>
-                  <h6 className='text-xl mb-0'>Eleanor Pena</h6>
-                  <span className='text-neutral-500'>Business Consultant</span>
-                </div>
-              </div>
-              <ul className='d-flex align-items-center justify-content-end gap-1'>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-              </ul>
-            </div>
-            <p className='mt-24 text-neutral-500 text-lg mb-0'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-              ea, voluptatem adipisci dignissimos pariatur, nulla, amet quas
-              laborum sit sint laudantium fuga. Vitae hic, facilis asperiores
-              reiciendis quis qui reprehenderit.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className='col-xxl-4 col-md-6'>
-        <div className='card rounded-3 overflow-hidden h-100'>
-          <div className='card-body p-24'>
-            <div className='d-flex align-items-start justify-content-between gap-2'>
-              <div className='d-flex align-items-center gap-12 flex-wrap'>
-                <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
-                  <img
-                    src='/assets/images/user-list/user-list9.png'
-                    alt=''
-                    className='w-100 h-100 object-fit-cover rounded-circle'
-                  />
-                </div>
-                <div className='d-flex flex-column flex-grow-1'>
-                  <h6 className='text-xl mb-0'> Leslie Alexander</h6>
-                  <span className='text-neutral-500'>Doctor</span>
-                </div>
-              </div>
-              <ul className='d-flex align-items-center justify-content-end gap-1'>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-neutral-300 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-neutral-300 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-neutral-300 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-              </ul>
-            </div>
-            <p className='mt-24 text-neutral-500 text-lg mb-0'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-              ea, voluptatem adipisci dignissimos pariatur, nulla, amet quas
-              laborum sit sint laudantium fuga. Vitae hic, facilis asperiores
-              reiciendis quis qui reprehenderit.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className='col-xxl-4 col-md-6'>
-        <div className='card rounded-3 overflow-hidden h-100'>
-          <div className='card-body p-24'>
-            <div className='d-flex align-items-start justify-content-between gap-2'>
-              <div className='d-flex align-items-center gap-12 flex-wrap'>
-                <div className='w-56-px h-56-px overflow-hidden flex-shrink-0'>
-                  <img
-                    src='/assets/images/user-list/user-list10.png'
-                    alt=''
-                    className='w-100 h-100 object-fit-cover rounded-circle'
-                  />
-                </div>
-                <div className='d-flex flex-column flex-grow-1'>
-                  <h6 className='text-xl mb-0'>Eleanor Pena</h6>
-                  <span className='text-neutral-500'>Back End Developer</span>
-                </div>
-              </div>
-              <ul className='d-flex align-items-center justify-content-end gap-1'>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-warning-600 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-neutral-300 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-                <li className='text-neutral-300 text-xl d-flex line-height-1'>
-                  <i className='ri-star-fill' />
-                </li>
-              </ul>
-            </div>
-            <p className='mt-24 text-neutral-500 text-lg mb-0'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-              ea, voluptatem adipisci dignissimos pariatur, nulla, amet quas
-              laborum sit sint laudantium fuga. Vitae hic, facilis asperiores
-              reiciendis quis qui reprehenderit.
+              "El equipo fue increíblemente útil y profesional. Me ayudaron a navegar por el proceso de compra de mi primera casa sin problemas."
             </p>
           </div>
         </div>

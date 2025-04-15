@@ -1,7 +1,5 @@
-"use client";
-
 import Breadcrumb from "@/components/Breadcrumb";
-import UsersListLayer from "@/components/Services";
+import Services from "@/components/Services";
 import MasterLayout from "@/masterLayout/MasterLayout";
 
 export const metadata = {
@@ -18,7 +16,7 @@ const Page = () => {
         {/* Breadcrumb */}
 
         {/* UsersListLayer */}
-        <UsersListLayer />
+        <Services />
       </MasterLayout>
     </>
   );
