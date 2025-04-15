@@ -65,7 +65,7 @@ const Services = () => {
 
   return (
     <div>
-      <section className="py-5" style={{ backgroundColor: "#f8f9fa" }}>
+      <section className="py-5">
         <div className="container">
           <h2 className="text-center mb-4">Inmuebles Destacados</h2>
           <h4 className="text-center mb-4">Filtrar Propiedades</h4>
